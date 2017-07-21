@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block page_title %} Dashboard {% endblock %}
+{% block breadcrumbs %}
+	<li class="active">Dashboard</li>
+{% endblock %}
+{% block content %}
+    <!--card stats start-->
+    <div id="card-stats">
+        <div class="row">
+            <div class="col s12 m6 l3">
+                <div class="card">
+                    <div class="card-content  green white-text">
+                        <p class="card-stats-title">  Databases</p>
+                        <h4 class="card-stats-number">25</h4>
+                        <p class="card-stats-compare"><i class="mdi-hardware-keyboard-arrow-up"></i> +3 <span class="green-text text-lighten-5">from yesterday</span>
+                        </p>
+                    </div>
+                    <div class="card-action  green darken-2">
+                        <div id="clients-bar" class="center-align"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m6 l3">
+                <div class="card">
+                    <div class="card-content pink lighten-1 white-text">
+                        <p class="card-stats-title">  Exprements</p>
+                        <h4 class="card-stats-number">54</h4>
+                        <p class="card-stats-compare"><i class="mdi-hardware-keyboard-arrow-down"></i> -3% <span class="deep-purple-text text-lighten-5">from last month</span>
+                        </p>
+                    </div>
+                    <div class="card-action  pink darken-2">
+                        <div id="invoice-line" class="center-align"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m6 l3">
+                <div class="card">
+                    <div class="card-content blue-grey white-text">
+                        <p class="card-stats-title">  Models</p>
+                        <h4 class="card-stats-number">200</h4>
+                        <p class="card-stats-compare"><i class="mdi-hardware-keyboard-arrow-up"></i> 80% <span class="blue-grey-text text-lighten-5">from last month</span>
+                        </p>
+                    </div>
+                    <div class="card-action blue-grey darken-2">
+                        <div id="profit-tristate" class="center-align"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m6 l3">
+                <div class="card">
+                    <div class="card-content purple white-text">
+                        <p class="card-stats-title">  Execution</p>
+                        <h4 class="card-stats-number">160</h4>
+                        <p class="card-stats-compare"><i class="mdi-hardware-keyboard-arrow-up"></i> 70% <span class="purple-text text-lighten-5">last month</span>
+                        </p>
+                    </div>
+                    <div class="card-action purple darken-2">
+                        <div id="sales-compositebar" class="center-align"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--card stats end-->
+
+    <!--chart dashboard start-->
+    <div id="chart-dashboard">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="card">
+                    <div class="card-move-up waves-effect waves-block waves-light">
+                        <div class="move-up cyan darken-1">
+                            <div>
+                                <span class="chart-title white-text">Models Per Hour</span>
+                                <div class="chart-revenue cyan darken-2 white-text">
+                                    <p class="chart-revenue-total">230</p>
+                                    <p class="chart-revenue-per"><i class="mdi-navigation-arrow-drop-up"></i> 21.80 %</p>
+                                </div>
+                                <div class="switch chart-revenue-switch right">
+                                    <label class="cyan-text text-lighten-5">
+                                      Month
+                                      <input type="checkbox">
+                                      <span class="lever"></span> Year
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="models-line-chart-wrapper">
+                                <canvas id="models-line-chart" height="70"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="card">
+                    <div class="card-move-up waves-effect waves-block waves-light">
+                        <div class="move-up teal darken-1">
+                            <div>
+                                <span class="chart-title white-text">Calls Per Hour</span>
+                                <div class="chart-revenue teal darken-2 white-text">
+                                    <p class="chart-revenue-total">230</p>
+                                    <p class="chart-revenue-per"><i class="mdi-navigation-arrow-drop-up"></i> 21.80 %</p>
+                                </div>
+                                <div class="switch chart-revenue-switch right">
+                                    <label class="teal-text text-lighten-5">
+                                      Month
+                                      <input type="checkbox">
+                                      <span class="lever"></span> Year
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="calls-line-chart-wrapper">
+                                <canvas id="calls-line-chart" height="70"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <!--chart dashboard end-->
+
+{% endblock %}
+
+
+{% block extra_scripts %}
+    <!-- chartjs -->
+    <script type="text/javascript" src="{% static 'theme/js/plugins/chartjs/chart.min.js' %}"></script>
+
+    <!-- sparkline -->
+    <script type="text/javascript" src="{% static 'theme/js/plugins/sparkline/jquery.sparkline.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'theme/js/plugins/sparkline/sparkline-script.js' %}"></script>
+    <script type="text/javascript" src="{% static 'custom/coordinator/js/dashboard.js' %}"></script>
+
+{% endblock %}

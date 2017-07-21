@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block extra_styles %}
+  <link href="{% static 'theme/js/plugins/data-tables/css/jquery.dataTables.min.css' %}" type="text/css" rel="stylesheet" media="screen,projection">
+{% endblock %}
+
+{% block page_title %} Projects {% endblock %}
+{% block breadcrumbs %}
+	<li class="active">Projects</li>
+{% endblock %}
+
+{% block content %}
+
+    <!--card stats start-->
+    <div id="card-stats">
+        <div class="row">
+            <div class="col s12 m6 l3">
+                <div class="card">
+                    <div class="card-content  green white-text">
+                        <p class="card-stats-title">  Databases</p>
+                        <h4 class="card-stats-number">25</h4>
+                        <p class="card-stats-compare"><i class="mdi-hardware-keyboard-arrow-up"></i> +3 <span class="green-text text-lighten-5">from yesterday</span>
+                        </p>
+                    </div>
+                    <div class="card-action  green darken-2">
+                        <div id="clients-bar" class="center-align"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m6 l3">
+                <div class="card">
+                    <div class="card-content pink lighten-1 white-text">
+                        <p class="card-stats-title">  Exprements</p>
+                        <h4 class="card-stats-number">54</h4>
+                        <p class="card-stats-compare"><i class="mdi-hardware-keyboard-arrow-down"></i> -3% <span class="deep-purple-text text-lighten-5">from last month</span>
+                        </p>
+                    </div>
+                    <div class="card-action  pink darken-2">
+                        <div id="invoice-line" class="center-align"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m6 l3">
+                <div class="card">
+                    <div class="card-content blue-grey white-text">
+                        <p class="card-stats-title">  Models</p>
+                        <h4 class="card-stats-number">200</h4>
+                        <p class="card-stats-compare"><i class="mdi-hardware-keyboard-arrow-up"></i> 80% <span class="blue-grey-text text-lighten-5">from last month</span>
+                        </p>
+                    </div>
+                    <div class="card-action blue-grey darken-2">
+                        <div id="profit-tristate" class="center-align"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m6 l3">
+                <div class="card">
+                    <div class="card-content purple white-text">
+                        <p class="card-stats-title">  Execution</p>
+                        <h4 class="card-stats-number">160</h4>
+                        <p class="card-stats-compare"><i class="mdi-hardware-keyboard-arrow-up"></i> 70% <span class="purple-text text-lighten-5">last month</span>
+                        </p>
+                    </div>
+                    <div class="card-action purple darken-2">
+                        <div id="sales-compositebar" class="center-align"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h5> Models </h5>
+
+    <div class="card">
+        <div class="card-content">
+            <table id="models-table">
+                <thead>
+                    <tr>
+                        <th> Model Name </th>
+                        <th> Algorithm </th>
+                        <th> Accuracy </th>
+                        <th> Created </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td> Model1 </td>
+                        <td> Algorithm </td>
+                        <td> 1 </td>
+                        <td> 2017-06-25 </td>
+                    </tr>
+                    <tr>
+                        <td> Model1 </td>
+                        <td> Algorithm </td>
+                        <td> 1 </td>
+                        <td> 2017-06-25 </td>
+                    </tr>
+                    <tr>
+                        <td> Model1 </td>
+                        <td> Algorithm </td>
+                        <td> 1 </td>
+                        <td> 2017-06-25 </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+
+{% block extra_scripts %}
+
+    <!-- data-tables -->
+    <script type="text/javascript" src="{% static 'theme/js/plugins/data-tables/js/jquery.dataTables.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'theme/js/plugins/data-tables/data-tables-script.js' %}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#models-table").DataTable();
+        });
+    </script>
+{% endblock %}
