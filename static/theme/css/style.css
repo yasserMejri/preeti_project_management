@@ -2640,3 +2640,7 @@ Custom CSS
   top: 0;
   left: 0;
 }
+
+.loading-gif {
+  font-size: 60px;
+}

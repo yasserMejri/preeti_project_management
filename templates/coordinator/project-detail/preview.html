@@ -4,12 +4,13 @@
 
 	<div class="select-data-source">
 		<div class="col s12 m2 l2 text" > Select Data Source </div>
-		<select name="data-source" class="col s12 m3 l3"> 
-			<option value="source1"> NuberAI </option>
-			<option value="source2"> NuberAI2 </option>
+		<select name="data-source" class="col s12 m3 l3" id="dataset-selector"> 
+			{% for dataset in datasets %}
+				<option value="{{ dataset.id }}" >  {{ dataset.name }}  </option>
+			{% endfor %}
 		</select>
-		<div class="col s6 m2 l2 text"> <strong> Samples: </strong> <span> 108,405 </span> </div>
-		<div class="col s6 m2 l2 text"> <strong> Attirbutes: </strong> <span> 25 </span> </div>
+		<div class="col s6 m2 l2 text"> <strong> Samples: </strong> <span> {{ colcount }} </span> </div>
+		<div class="col s6 m2 l2 text"> <strong> Attirbutes: </strong> <span> {{ rowcount }} </span> </div>
 	</div> 
 
 	<div class="clearfix"> </div>
@@ -28,17 +29,57 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td> Content </th>
-                        <td> This is longer content </td>
-                        <td> Content  </td>
-                        <td> Content </td>
-                        <td> &nbsp; </td>
-                        <td> &nbsp; </td>
-                    </tr>
+                	{% for item in data %}
+	                    <tr>
+	                        <td> {{ item.column_name }} </th>
+	                        <td> 
+	                        	<select class="usuage" data-name="{{item.column_name}}">
+	                        		{% for option in options %}
+	                        			<option value="{{ option }}" {% if option == item.usuage %} selected="selected" {% endif %}> {{ option }} </option>
+	                        		{% endfor %}
+	                        	</select>
+	                        </td>
+	                        <td> {{ item.unique_values }}  </td>
+	                        <td> {{ item.most_frequent }} </td>
+	                        <td> {{ item.least_frequent }} </td>
+	                        <td> &nbsp; </td>
+	                    </tr>
+	                {% endfor %}
                 </tbody>
             </table>
 		</div>
 	</div>
 
+{% endblock %}
+
+{% block extra_scripts_project %}
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#dataset-selector").change(function() {
+				window.location = "{% url 'coordinator:preview' project_id %}"+"?dataset="+$(this).val();
+			}); 
+			$("#dataset-selector").val({{ dataset_id }});
+			$("#dataset-selector").material_select();
+			$(".usuage").material_select('destroy');
+			$(".usuage").material_select();
+			$(".usuage").change(function() {
+				$.post(
+					"{% url 'coordinator:preview_post' project_id %}", 
+					{
+						'csrfmiddlewaretoken': $("{% csrf_token %}").val(), 
+						'data': $(this).val(), 
+						'column_name': $(this).attr('data-name'),
+						'dataset_id': {{ dataset_id }}
+					}, function(r) {
+						var data = JSON.parse(r);
+						console.log(data);
+						if(data['status'] == 'success') {
+							Materialize.toast('Saved', 2000);
+						} else {
+							Materialize.toast('Failed', 2000);
+						}
+					} ); 
+			}); 
+		}); 
+	</script>
 {% endblock %}

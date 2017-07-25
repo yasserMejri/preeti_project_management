@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from coordinator import models
 
 # Create your views here.
 
@@ -20,9 +21,24 @@ def projects(request):
 		layout = 'grid'
 	else:
 		layout = 'list'
+
+	if request.method == 'POST':
+		project = models.Project(
+				name = request.POST.get('name'), 
+				description = request.POST.get('description'), 
+				visibility = request.POST.get('visibility'), 
+				task = request.POST.get('task'), 
+				category = request.POST.get('category'), 
+				owner = request.user
+			)
+		project.save()
+
+	projects = models.Project.objects.all()
+
 	return render(request, 'coordinator/projects.html', {
 		'user': request.user, 
-		'layout': layout
+		'layout': layout, 
+		'projects': projects
 		})
 
 

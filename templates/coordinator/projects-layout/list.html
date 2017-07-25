@@ -12,18 +12,21 @@
         </div> 
         <br/> <div class="divider"> </div> <br/>
         <!-- List of Projects -->
+
+    {% for project in projects %}
         <div class="row item">
-            <div class="col s12 m1 l1"> <span> Project A </span> </div>
-            <div class="col s12 m1 l1"> <span> 2017-07-20 </span> </div>
-            <div class="col s12 m1 l1"> <span> Classification </span> </div>
+            <div class="col s12 m1 l1"> <span> {{ project.name }} </span> </div>
+            <div class="col s12 m1 l1"> <span> {{ project.created_time|date:"o-n-j"}} </span> </div>
+            <div class="col s12 m1 l1"> <span> {{ project.task }} </span> </div>
             <div class="col s12 m1 l1"> <span> 47 </span> </div>
-            <div class="col s12 m1 l1"> <span> Private </span> </div>
-            <div class="col s12 m1 l1"> <span> Category 1 </span> </div>
-            <div class="col s12 m5 l5"> <span> I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively. </span> </div>
+            <div class="col s12 m1 l1"> <span> {{ project.visibility }} </span> </div>
+            <div class="col s12 m1 l1"> <span> {{ project.category }} </span> </div>
+            <div class="col s12 m5 l5"> <span> {{ project.description }} </span> </div>
             <div class="col s12 m1 l1"> 
                 <i class="mdi-editor-mode-edit"> </i>
                 <i class="mdi-action-delete"> </i> 
             </div>
         </div> <br/>
+    {% endfor %}
     </div>
 </div>

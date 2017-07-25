@@ -15,30 +15,30 @@
     <div class="row">
         <div id="project-nav" class="col s12 m4 l3 card">
             <ul>
-                <li class="menu-item"> <strong> <a href="{% url 'coordinator:project' 1 %}" class="black-text" > Project A </a> </strong> </li>
+                <li class="menu-item"> <strong> <a href="{% url 'coordinator:project' project_id %}" class="black-text" > Project A </a> </strong> </li>
                 <li class="divider"></li>
                 <li class="menu-item heading"><span>Data </span>
                 </li>
-                <li class="menu-item data-sources"><a href="{% url 'coordinator:data-sources' 1 %}">Data Sources</a>
+                <li class="menu-item data-sources"><a href="{% url 'coordinator:data-sources' project_id %}">Data Sources</a>
                 </li>
-                <li class="menu-item preview"><a href="{% url 'coordinator:preview' 1 %}">Preview</a>
+                <li class="menu-item preview"><a href="{% url 'coordinator:preview' project_id %}">Preview</a>
                 </li>
                 <li> &nbsp; </li>
                 <li class="divider"></li>
                 <li class="menu-item heading"><span>Model Building </span>
-                <li class="menu-item experiments"><a href="{% url 'coordinator:experiments' 1 %}">Experiment</a>
+                <li class="menu-item experiments"><a href="{% url 'coordinator:experiments' project_id %}">Experiment</a>
                 </li>
-                <li class="menu-item results"><a href="{% url 'coordinator:results' 1 %}">Result</a>
+                <li class="menu-item results"><a href="{% url 'coordinator:results' project_id %}">Result</a>
                 </li>
-                <li class="menu-item predict"><a href="{% url 'coordinator:predict' 1 %}">Predict</a>
+                <li class="menu-item predict"><a href="{% url 'coordinator:predict' project_id %}">Predict</a>
                 </li>
-                <li class="menu-item feature"><a href="{% url 'coordinator:feature' 1 %}">Feature Analysis</a>
+                <li class="menu-item feature"><a href="{% url 'coordinator:feature' project_id %}">Feature Analysis</a>
                 </li>
                 <li> &nbsp; </li>
                 <li class="divider"></li>
                 <li class="menu-item heading"><span>API Management </span>
-                <li class="menu-item deploy"><a href="{% url 'coordinator:deploy' 1 %}">Deploy Model</a>
-                <li class="menu-item api"><a href="{% url 'coordinator:api_status' 1 %}">API Status</a>
+                <li class="menu-item deploy"><a href="{% url 'coordinator:deploy' project_id %}">Deploy Model</a>
+                <li class="menu-item api"><a href="{% url 'coordinator:api_status' project_id %}">API Status</a>
                 <li> &nbsp; </li>
                 </li>
             </ul>
