@@ -73,4 +73,11 @@ def auth_register(request):
 		})
 	return HttpResponse('register')
 
+def auth_profile(request):
+	error = None
+
+	return render(request, 'auth/user-profile.html', {
+		'user': request.user,
+		'error': error
+		})
 

@@ -2476,4 +2476,167 @@ Custom CSS
 
 .projects .item {
   cursor: pointer;
+  position: relative;
+}
+
+#delete-btn.delete {
+  background-color: #f00;
+}
+
+.projects .item .delete-layer {
+  display: none;
+  position: absolute;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #ff0000;
+  opacity: 0.1;
+  color: #0ff;
+  font-size: 30px;
+  text-align: center;
+  z-index: 10;
+  margin: 2px;
+}
+
+.projects .item.delete .delete-layer {
+  display: block;
+}
+
+.projects .item.delete .delete-layer:hover {
+  opacity: 0.3;
+}
+
+.logoText {
+  margin:14px;
+}
+
+.logoText > a {
+  font-size: 1em;
+}
+
+#project-nav {
+
+}
+
+#project-nav li.menu-item {
+  padding: 12px;
+}
+
+#project-nav li.menu-item:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+#project-nav .menu-item.active {
+  font-weight: 800;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+#project-nav .menu-item.heading {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+#content {
+  margin-top: 0 !important;
+}
+
+.card-summary strong {
+  width: 35%;
+  display: inline-block;
+}
+
+.file-uploader {
+  border: 2px dashed #777;
+  height: 100px;
+  margin-bottom: 20px;
+  background-color: rgba(0, 0, 0, 0.04);
+  font-size: 20px;
+  padding: 10px !important;
+  color: #777;
+  position: relative;
+}
+
+.file-uploader > span {
+  font-size: 12px;
+  display: block;
+}
+
+.file-uploader .file-input {
+  opacity: 0.01;
+  z-index: 20;
+  width:100%;
+  height:100%;
+  background-color: #000;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.select-data-source {
+  margin-top: 20px;
+}
+
+.select-data-source .text {
+  margin: 15px 3px;
+  text-align: right;
+}
+
+.summary-head {
+  font-weight: 800;
+}
+
+.heading > label {
+  font-size: 16px;
+  color: #000;
+}
+
+#experiment-form .step {
+  display: none;
+}
+
+#experiment-form .step.active {
+  display: block;
+}
+
+.step-header .text {
+  margin: 15px 0;
+}
+
+.stepitem .subcontent {
+  padding: 0 20px;
+}
+
+.stepitem .subcontent .switch {
+  margin: 12px 0;
+}
+
+@media only screen and (min-width: 993px){
+  .row .col.l_5 {
+    width: 19%;
+    margin: 0 0.5%;
+    padding: 0 2px;
+  }
+}
+
+.step-indicator {
+  text-align: center;
+  border: 1px solid #aaa;
+  background-color: rgba(0,0,0,0.04);
+  position: relative;
+}
+
+.step-indicator > div {
+  padding: 20px;
+  display: inline-block;
+}
+
+.step-indicator .step-mask {
+  opacity: 0.01;
+  z-index: 20;
+  width:100%;
+  height:100%;
+  background-color: #000;
+  position: absolute;
+  top: 0;
+  left: 0;
 }

@@ -3,9 +3,7 @@
 {% load static %}
 
 {% block page_title %} Projects {% endblock %}
-{% block breadcrumbs %}
-	<li class="active">Projects</li>
-{% endblock %}
+
 {% block content %}
     <!--card projects start-->
     <div id="basic-card" class="section">
@@ -14,18 +12,15 @@
                 <i class="mdi-action-search prefix"></i>
                 <input type="text" name="search_query" placeholder="Search Project" />
             </div>
-            <div class="input-field col offset-m1 offset-l3 s12 m7 l5">
-                <div class="col s5 m5 l5"> 
-                    <a class="btn col s12 m12 l12 waves-effect waves-light modal-trigger" href="#add_new" > Add </a>
+            <div class="input-field col offset-m3 offset-l5 s12 m5 l3">
+                <div class="col s8 m8 l8"> 
+                    <a class="btn col s12 m12 l12 waves-effect waves-dark white modal-trigger black-text" href="#add_new" > Add </a>
                 </div>
-                <div class="col s5 m5 l5"> 
-                    <a class="btn col s12 m12 l12 waves-effect waves-light" > Delete </a>
-                </div>
-                <div class="col s2 m2 l2">
+                <div class="col s4 m4 l4">
                     {% if layout == 'grid' %}
-                        <a href="{% url 'coordinator:projects' %}?layout=list" class="btn col s12 m12 l12 waves-effect waves-light" > <i class="mdi-action-view-list"> </i> </a>
+                        <a href="{% url 'coordinator:projects' %}?layout=list" class="btn col s12 m12 l12 waves-effect waves-dark white black-text" > <i class="mdi-action-view-list"> </i> </a>
                     {% else %}
-                        <a href="{% url 'coordinator:projects' %}?layout=grid" class="btn col s12 m12 l12 waves-effect waves-light" > <i class="mdi-action-view-module"> </i> </a>
+                        <a href="{% url 'coordinator:projects' %}?layout=grid" class="btn col s12 m12 l12 waves-effect waves-dark white black-text" > <i class="mdi-action-view-module"> </i> </a>
                     {% endif %}
                 </div>
             </div>
@@ -51,6 +46,33 @@
                 <div class="input-field">
                     <textarea id="project-note" name="note" class="materialize-textarea" ></textarea>
                     <label for="project-note"> Project Note </label>
+                </div><br/>
+                <div class="input-field">
+                    <label class="active"> Visibility </label>
+                    <select id="visibility">
+                      <option value="" disabled selected>Choose your option</option>
+                      <option value="1">Private</option>
+                      <option value="2">Public (View only)</option>
+                      <option value="3">Public (Edit)</option>
+                    </select>
+                </div> <br/>
+                <div class="input-field">
+                    <label class="active"> Task </label>
+                    <select id="visibility">
+                      <option value="" disabled selected>Choose your option</option>
+                      <option value="1">Classfication</option>
+                      <option value="2">Classfication - Deep Learning</option>
+                      <option value="3">Classfication - XYZ</option>
+                    </select>
+                </div> <br/>
+                <div class="input-field">
+                    <label class="active"> Category </label>
+                    <select id="visibility">
+                      <option value="" disabled selected>Choose your option</option>
+                      <option value="1">Category A</option>
+                      <option value="2">Category B</option>
+                      <option value="3">Category C</option>
+                    </select>
                 </div>
             </div>
             <div class="modal-footer">
@@ -63,3 +85,6 @@
 
 {% endblock %}
 
+{% block extra_scripts %}
+    <script type="text/javascript" src="{% static 'custom/coordinator/js/projects.js' %}"></script>
+{% endblock %}

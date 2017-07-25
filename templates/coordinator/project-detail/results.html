@@ -1,0 +1,67 @@
+{% extends 'coordinator/project.html' %}
+
+{% block project-content %}
+
+	<div class="select-data-source col s12 m12 l12">
+        <div class="col s12 m2 l2 text align-right" > Experiment: </div>
+        <select name="experiment" class="col s12 m2 l2"> 
+            <option value="source1"> Experiment1 </option>
+            <option value="source2"> Experiment2 </option>
+        </select>
+ 
+        <div class="col s12 m1 l1 text" > Status: </div>
+        <select name="status" class="col s12 m2 l2"> 
+            <option value="source1"> All </option>
+            <option value="source2"> Only Done </option>
+            <option value="source2"> Only Learning </option>
+            <option value="source2"> Only Initiated </option>
+            <option value="source2"> Only Error </option>
+        </select>
+
+        <div class="col s12 m1 l1 text" > Display: </div>
+        <select name="display" class="col s12 m3 l3"> 
+            <option value="source1"> Best by algorithm </option>
+            <option value="source2"> Best by column </option>
+        </select>
+
+	</div> 
+
+	<div class="clearfix"> </div>
+
+	<div class="preview card">
+		<div class="card-content black-text">
+            <table id="data-table">
+                <thead>
+                    <tr>
+                        <th> Experiment </th>
+                        <th> Dataset </th>
+                        <th> Validation </th>
+                        <th> Metric </th>
+                        <th> Score </th>
+                        <th> Total Time Spent </th>
+                        <th> Status </th>
+                        <th> Algorithm </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td> Experiment1 </td>
+                        <td> Content </td>
+                        <td> 5-fold </td>
+                        <td> 38 </td>
+                        <td> 0.78 </td>
+                        <td> 1:18:19 </td>
+                        <td> 
+                          <div class="chip green white-text">
+                            Success
+                          </div>
+                        </td>
+                        <td> Random Forest </td>
+                    </tr>
+                </tbody>
+            </table>
+		</div>
+	</div>
+    <a class="btn red darken-1 waves-effect waves-light right"> Delete Model </a>
+
+{% endblock %}

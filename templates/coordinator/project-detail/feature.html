@@ -1,0 +1,62 @@
+{% extends 'coordinator/project.html' %}
+
+{% load static %}
+
+{% block project-content %}
+
+    <div class="step">
+        <div class="step-header col s12 m12 l12">
+            <span class="text col s12 m3 l3"> Select Model </span>
+        </div>
+
+        <div class="clearfix"> </div>
+
+    	<div class="preview card">
+    		<div class="card-content black-text">
+                <table id="data-table">
+                    <thead>
+                        <tr>
+                            <th> Experiment </th>
+                            <th> Dataset </th>
+                            <th> Validation </th>
+                            <th> Metric </th>
+                            <th> Score </th>
+                            <th> Total Time Spent </th>
+                            <th> Status </th>
+                            <th> Algorithm </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td> Experiment1 </td>
+                            <td> Content </td>
+                            <td> 5-fold </td>
+                            <td> 38 </td>
+                            <td> 0.78 </td>
+                            <td> 1:18:19 </td>
+                            <td> 
+                              <div class="chip green white-text">
+                                Success
+                              </div>
+                            </td>
+                            <td> Random Forest </td>
+                        </tr>
+                    </tbody>
+                </table>
+    		</div>
+    	</div>
+    </div>
+
+    <div class="step">
+        <div class="step-header col s12 m12 l12">
+            <span class="text col s12 m3 l3"> Feature Analyis </span>
+        </div>
+        <canvas id="feature-analysis" height="350" > </canvas>
+    </div>
+
+{% endblock %}
+
+{% block extra_scripts_project %}
+    <script type="text/javascript" src="{% static 'theme/js/plugins/chartjs/chart.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'custom/coordinator/project/js/feature.js' %}"> </script>
+{% endblock %}

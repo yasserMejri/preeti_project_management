@@ -1,0 +1,66 @@
+{% extends 'coordinator/project.html' %}
+
+{% load static %}
+
+{% block project-content %}
+	<a class="btn blue white-text right waves-effect waves-light">
+		Load Dataset
+	</a>
+
+	<div class="preview-data-source card col s12 m12 l12">
+        <div class="card-content black-text">
+		    <span class="card-title">
+		        Preview
+		        <div class="actions right">
+		            <i class="mdi-action-delete"> </i>
+		        </div>
+		    </span>
+            <div class = "card-summary">
+                <strong> Dataset on : </strong>  <span> NumerAI </span> <br/>
+                <strong> File name : </strong>  <span> numerai_training_data.csv </span> <br/>
+                <strong> File size : </strong>  <span> 19.54 MB </span> <br/>
+                <strong> Scope : </strong>  <span> Private </span> <br/>
+                <strong> Added at : </strong>  <span> 6/8/17 8:43 PM </span> <br/>
+                <strong> Origin : </strong>  <span> Dataset uploaded by user </span> <br/>
+                <br/>
+                <strong> Column usage accepted </strong> <br/>
+                <strong> MLCoord is able to read this dataset. </strong>
+            </div>
+		</div>
+	</div>
+
+	<div class="add-new card col s12 m5 l5">
+		<div class="card-content black-text">
+			<span class="card-title">
+				Add New Dataset
+			</span>
+			<div class="add-form">
+				<form method="post">
+					{% csrf_token %}
+					<div class="input-field">
+						<label class="active"> Dataset Name </label>
+						<input type = "text" name="filename" />
+					</div>
+					<div class="file-uploader center-align col s5 m5 l5">
+						<i class="mdi-file-file-upload"> </i>
+						<span> Drag and Drop to upload </span>
+						<input type="file" name="file" id="file-input" class="file-input" accept=".xls,.xlsx,.csv,.tsv" />
+					</div> 
+					<p>
+                      <input type="checkbox" class="filled-in" id="filled-in-box"  >
+                      <label for="filled-in-box">Use this data set for validation</label>
+                    </p> <br/>
+                    <div class="row">
+                    	<a class="btn waves-effect waves-light white black-text"> Cancel </a>
+                    	<input type="submit" class="btn blue waves-light waves-effect" name="file" value = "Submit" />
+                    </div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block extra_scripts_project %}
+    <script type="text/javascript" src="{% static 'custom/coordinator/project/js/datasources.js' %}"></script>
+{% endblock %}

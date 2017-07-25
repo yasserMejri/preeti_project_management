@@ -10,55 +10,44 @@
     <!--card stats start-->
     <div id="card-stats">
         <div class="row">
-            <div class="col s12 m6 l3">
+            <h5 class="col s12 m12 l12"> Summary </h5>
+            <div class="col s12 m4 l_5">
                 <div class="card">
-                    <div class="card-content  green white-text">
-                        <p class="card-stats-title">  Databases</p>
-                        <h4 class="card-stats-number">25</h4>
-                        <p class="card-stats-compare"><i class="mdi-hardware-keyboard-arrow-up"></i> +3 <span class="green-text text-lighten-5">from yesterday</span>
-                        </p>
-                    </div>
-                    <div class="card-action  green darken-2">
-                        <div id="clients-bar" class="center-align"></div>
+                    <div class="card-content black-text">
+                        <h4 class="card-stats-number">12</h4>
+                        <p class="card-stats-title">  Projects </p>
                     </div>
                 </div>
             </div>
-            <div class="col s12 m6 l3">
+            <div class="col s12 m4 l_5">
                 <div class="card">
-                    <div class="card-content pink lighten-1 white-text">
-                        <p class="card-stats-title">  Exprements</p>
-                        <h4 class="card-stats-number">54</h4>
-                        <p class="card-stats-compare"><i class="mdi-hardware-keyboard-arrow-down"></i> -3% <span class="deep-purple-text text-lighten-5">from last month</span>
-                        </p>
-                    </div>
-                    <div class="card-action  pink darken-2">
-                        <div id="invoice-line" class="center-align"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col s12 m6 l3">
-                <div class="card">
-                    <div class="card-content blue-grey white-text">
-                        <p class="card-stats-title">  Models</p>
+                    <div class="card-content black-text">
                         <h4 class="card-stats-number">200</h4>
-                        <p class="card-stats-compare"><i class="mdi-hardware-keyboard-arrow-up"></i> 80% <span class="blue-grey-text text-lighten-5">from last month</span>
-                        </p>
-                    </div>
-                    <div class="card-action blue-grey darken-2">
-                        <div id="profit-tristate" class="center-align"></div>
+                        <p class="card-stats-title">  Data Source </p>
                     </div>
                 </div>
             </div>
-            <div class="col s12 m6 l3">
+            <div class="col s12 m4 l_5">
                 <div class="card">
-                    <div class="card-content purple white-text">
-                        <p class="card-stats-title">  Execution</p>
-                        <h4 class="card-stats-number">160</h4>
-                        <p class="card-stats-compare"><i class="mdi-hardware-keyboard-arrow-up"></i> 70% <span class="purple-text text-lighten-5">last month</span>
-                        </p>
+                    <div class="card-content black-text">
+                        <h4 class="card-stats-number">253</h4>
+                        <p class="card-stats-title">  Exprements</p>
                     </div>
-                    <div class="card-action purple darken-2">
-                        <div id="sales-compositebar" class="center-align"></div>
+                </div>
+            </div>
+            <div class="col s12 m4 l_5">
+                <div class="card">
+                    <div class="card-content black-text">
+                        <h4 class="card-stats-number">3421</h4>
+                        <p class="card-stats-title">  Models</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m4 l_5">
+                <div class="card">
+                    <div class="card-content black-text">
+                        <h4 class="card-stats-number">31:08:45</h4>
+                        <p class="card-stats-title">  Execution time</p>
                     </div>
                 </div>
             </div>
@@ -69,13 +58,13 @@
     <!--chart dashboard start-->
     <div id="chart-dashboard">
         <div class="row">
-            <div class="col s12 m12 l12">
+            <div class="col s12 m6 l6">
                 <div class="card">
-                    <div class="card-move-up waves-effect waves-block waves-light">
-                        <div class="move-up cyan darken-1">
+                    <div class="card-move-up waves-effect waves-block waves-dark">
+                        <div class="move-up darken-1">
                             <div>
-                                <span class="chart-title white-text">Models Per Hour</span>
-                                <div class="chart-revenue cyan darken-2 white-text">
+                                <span class="chart-title black-text">Models Per Hour</span>
+                                <div class="chart-revenue white darken-2">
                                     <p class="chart-revenue-total">230</p>
                                     <p class="chart-revenue-per"><i class="mdi-navigation-arrow-drop-up"></i> 21.80 %</p>
                                 </div>
@@ -88,7 +77,7 @@
                                 </div>
                             </div>
                             <div class="models-line-chart-wrapper">
-                                <canvas id="models-line-chart" height="70"></canvas>
+                                <canvas id="models-line-chart" height="170"></canvas>
                             </div>
                         </div>
                     </div>
@@ -96,16 +85,13 @@
                 </div>
             </div>
 
-        </div>
-
-        <div class="row">
-            <div class="col s12 m12 l12">
+            <div class="col s12 m6 l6">
                 <div class="card">
-                    <div class="card-move-up waves-effect waves-block waves-light">
-                        <div class="move-up teal darken-1">
+                    <div class="card-move-up waves-effect waves-block waves-dark">
+                        <div class="move-up darken-1">
                             <div>
-                                <span class="chart-title white-text">Calls Per Hour</span>
-                                <div class="chart-revenue teal darken-2 white-text">
+                                <span class="chart-title">Calls Per Hour</span>
+                                <div class="chart-revenue white darken-2">
                                     <p class="chart-revenue-total">230</p>
                                     <p class="chart-revenue-per"><i class="mdi-navigation-arrow-drop-up"></i> 21.80 %</p>
                                 </div>
@@ -118,14 +104,50 @@
                                 </div>
                             </div>
                             <div class="calls-line-chart-wrapper">
-                                <canvas id="calls-line-chart" height="70"></canvas>
+                                <canvas id="calls-line-chart" height="170"></canvas>
                             </div>
                         </div>
                     </div>
 
                 </div>
             </div>
+        </div>
 
+        <div class="row">
+            <div class="preview card">
+                <div class="card-content black-text">
+                    <table id="data-table">
+                        <thead>
+                            <tr>
+                                <th> Project </th>
+                                <th> Dataset </th>
+                                <th> Exprements </th>
+                                <th> Algorithm </th>
+                                <th> Validation </th>
+                                <th> Accuracy </th>
+                                <th> F1 Score </th>
+                                <th> Status </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td> Content </td>
+                                <td> This is longer content </td>
+                                <td> Content </td>
+                                <td> Content </td>
+                                <td> 5-fold </td>
+                                <td> 0.8945 </td>
+                                <td> </td>
+                                <td> 
+                                  <div class="chip green white-text">
+                                    Success
+                                  </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
 
     </div>

@@ -1,16 +1,16 @@
 $(document).ready(function() {
 
 	var data = {
-		labels : ["Apple","Samsung","SONY","Motorola","Nokia","Microsoft","Xiaomi", "Apple","Samsung","SONY","Motorola","Nokia","Microsoft","Xiaomi"],
+		labels : ["13", "12", "11", "10", "9", "8", "7", "6", "5", "4", "3", "2", "1", "0"],
 		datasets : [
 			{
 				label: "First dataset",
-				fillColor : "rgba(128, 222, 234, 0.6)",
-				strokeColor : "#ffffff",
-				pointColor : "#00bcd4",
-				pointStrokeColor : "#ffffff",
-				pointHighlightFill : "#ffffff",
-				pointHighlightStroke : "#ffffff",
+				fillColor : "rgba(0, 0, 0, 0.08)",
+				strokeColor : "#777",
+				pointColor : "#fff",
+				pointStrokeColor : "#777",
+				pointHighlightFill : "#aaa",
+				pointHighlightStroke : "#555",
 				data: [100, 50, 20, 40, 80, 50, 80, 60, 20, 90, 80, 50, 85, 40]
 			},
 		]
@@ -19,7 +19,7 @@ $(document).ready(function() {
 	var modelsLineChart_w = document.getElementById("models-line-chart").getContext("2d");
 	window.modelsLineChart = new Chart(modelsLineChart_w).Line(data, {		
 		scaleShowGridLines : true,///Boolean - Whether grid lines are shown across the chart		
-		scaleGridLineColor : "rgba(255,255,255,0.4)",//String - Colour of the grid lines		
+		scaleGridLineColor : "rgba(0,0,0,0.4)",//String - Colour of the grid lines		
 		scaleGridLineWidth : 1,//Number - Width of the grid lines		
 		scaleShowHorizontalLines: true,//Boolean - Whether to show horizontal lines (except X axis)		
 		scaleShowVerticalLines: false,//Boolean - Whether to show vertical lines (except Y axis)		
@@ -37,7 +37,7 @@ $(document).ready(function() {
 		tooltipTitleFontFamily: "'Roboto','Helvetica Neue', 'Helvetica', 'Arial', sans-serif",// String - Tooltip title font declaration for the scale label		
 		scaleFontSize: 12,// Number - Scale label font size in pixels		
 		scaleFontStyle: "normal",// String - Scale label font weight style		
-		scaleFontColor: "#fff",// String - Scale label font colour
+		scaleFontColor: "#000",// String - Scale label font colour
 		tooltipEvents: ["mousemove", "touchstart", "touchmove"],// Array - Array of string names to attach tooltip events		
 		tooltipFillColor: "rgba(255,255,255,0.8)",// String - Tooltip background colour		
 		tooltipTitleFontFamily: "'Roboto','Helvetica Neue', 'Helvetica', 'Arial', sans-serif",// String - Tooltip title font declaration for the scale label		
@@ -58,7 +58,7 @@ $(document).ready(function() {
 	var callsLineChart_w = document.getElementById("calls-line-chart").getContext("2d");
 	window.callsLineChart = new Chart(callsLineChart_w).Line(data, {		
 		scaleShowGridLines : true,///Boolean - Whether grid lines are shown across the chart		
-		scaleGridLineColor : "rgba(255,255,255,0.4)",//String - Colour of the grid lines		
+		scaleGridLineColor : "rgba(0,0,0,0.4)",//String - Colour of the grid lines		
 		scaleGridLineWidth : 1,//Number - Width of the grid lines		
 		scaleShowHorizontalLines: true,//Boolean - Whether to show horizontal lines (except X axis)		
 		scaleShowVerticalLines: false,//Boolean - Whether to show vertical lines (except Y axis)		
@@ -76,7 +76,7 @@ $(document).ready(function() {
 		tooltipTitleFontFamily: "'Roboto','Helvetica Neue', 'Helvetica', 'Arial', sans-serif",// String - Tooltip title font declaration for the scale label		
 		scaleFontSize: 12,// Number - Scale label font size in pixels		
 		scaleFontStyle: "normal",// String - Scale label font weight style		
-		scaleFontColor: "#fff",// String - Scale label font colour
+		scaleFontColor: "#000",// String - Scale label font colour
 		tooltipEvents: ["mousemove", "touchstart", "touchmove"],// Array - Array of string names to attach tooltip events		
 		tooltipFillColor: "rgba(255,255,255,0.8)",// String - Tooltip background colour		
 		tooltipTitleFontFamily: "'Roboto','Helvetica Neue', 'Helvetica', 'Arial', sans-serif",// String - Tooltip title font declaration for the scale label		

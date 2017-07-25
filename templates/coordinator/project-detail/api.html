@@ -1,0 +1,67 @@
+{% extends 'coordinator/project.html' %}
+
+{% block project-content %}
+
+	<div class="select-data-source col s12 m12 l12">
+        <div class="col s12 m2 l2 text align-right" > Experiment: </div>
+        <select name="experiment" class="col s12 m2 l2"> 
+            <option value="source1"> Experiment1 </option>
+            <option value="source2"> Experiment2 </option>
+        </select>
+ 
+        <div class="col s12 m1 l1 text" > Status: </div>
+        <select name="status" class="col s12 m2 l2"> 
+            <option value="source1"> All </option>
+            <option value="source2"> Only Done </option>
+            <option value="source2"> Only Learning </option>
+            <option value="source2"> Only Initiated </option>
+            <option value="source2"> Only Error </option>
+        </select>
+
+	</div> 
+
+	<div class="clearfix"> </div>
+
+	<div class="preview card">
+		<div class="card-content black-text">
+            <table id="data-table">
+                <thead>
+                    <tr>
+                        <th> Experiment </th>
+                        <th> Model ID </th>
+                        <th> Model Algorithm </th>
+                        <th> Status </th>
+                        <th> Action </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td> Experiment1 </td>
+                        <td> This is longer content </td>
+                        <td> Content </td>
+                        <td> 
+                          <div class="chip green white-text">
+                            Success
+                          </div>
+                        </td>
+                        <td> 
+                          <div class="chip blue white-text">
+                            Action
+                          </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+		</div>
+	</div>
+    <div class="right">
+        <a class="btn yellow darken-4 waves-effect waves-light"> 
+            Restart All
+        </a>
+        &nbsp;
+        <a class="btn blue darken-1 waves-effect waves-light"> 
+            Test All
+        </a>
+    </div>
+
+{% endblock %}
