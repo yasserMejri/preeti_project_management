@@ -128,15 +128,22 @@
                     </div>
                     <div class="input-field col s12 m7 l7">
                         <label class="active"> Validation </label>
-                        <select name="validation">
-                            <option value="source1"> k-fold </option>
-                            <option value="source2"> Train/Test </option>
-                            <option value="source2"> Seperate Dataset </option>
+                        <select name="validation" id="validation-select">
+                            <option value="k-fold"> k-fold </option>
+                            <option value="Train/Test"> Train/Test </option>
+                            <option value="Seperate Dataset"> Seperate Dataset </option>
                         </select>
                     </div>
                     <div class="input-field col s12 m5 l5">
-                        <label class="active"> parameter </label>
-                        <input type="text" name="validation-parameter" />
+                        <div id="validation-parameter">
+                            <label class="active"> parameter </label>
+                            <input type="text" name="validation-parameter" />
+                        </div>
+                        <select id="validator-select" name="validator-idx">
+                            {% for validator in validators %}
+                                <option value={{validator.id}}> {{ validator.name }} </option>
+                            {% endfor %}
+                        </select>
                     </div>
                     <div class="clearfix"> </div>
                     <div class="input-field col s12">
@@ -173,13 +180,26 @@
                                 {% for field_name, field_values in fields.items %}
                                     <div class="input-field">
                                         <label class="active" > {{ field_name }} </label>
-                                        <select name="{{name}}-{{field_name}}">
+                                        <select name="{{name}}-{{field_name}}" multiple>
+                                            <option value="" disabled selected>Choose your option</option>
                                             {% for value in field_values %}
                                                 <option> {{ value }} </option>
                                             {% endfor %}
                                         </select>
                                     </div>
                                 {% endfor %}
+                                <div >
+                                    <label> Optimize </label>
+                                    <div class="switch">
+                                        <label class="">
+                                            Off 
+                                            <input type="checkbox" name="{{ name }}-optimize" /> 
+                                            <span class="lever"> </span> 
+                                            On
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="clearfix"> </div>
                                 {% endwith %}
                             </div>
                         </li>

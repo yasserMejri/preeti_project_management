@@ -7,44 +7,41 @@
   <link href="{% static 'theme/js/plugins/data-tables/css/jquery.dataTables.min.css' %}" type="text/css" rel="stylesheet" media="screen,projection">
 {% endblock %}
 
+{% block extra_styles_page %} {% endblock %}
+
 {% block page_title %} Projects {% endblock %}
+
+{% block letfsidebar %}
+    <ul id="project-nav" class="side-nav fixed leftside-navigation">
+        <li class="menu-item"> 
+            <a href="{% url 'coordinator:project' project_id %}" class="black-text" > 
+                <strong> {{ project.name }} </strong>
+            </a> 
+        </li>
+        <li class="divider"></li>
+        <li class="menu-item heading"><span>Data </span> </li>
+        <li class="menu-item data-sources"><a href="{% url 'coordinator:data-sources' project_id %}">Data Sources</a> </li>
+        <li class="menu-item preview"><a href="{% url 'coordinator:preview' project_id %}">Preview</a> </li>
+        <li class="divider"></li>
+        <li class="menu-item heading"><span>Model Building </span>
+        <li class="menu-item experiments"><a href="{% url 'coordinator:experiments' project_id %}">Experiment</a> </li>
+        <li class="menu-item results"><a href="{% url 'coordinator:results' project_id %}">Result</a> </li>
+        <li class="menu-item predict"><a href="{% url 'coordinator:predict' project_id %}">Predict</a> </li>
+        <li class="menu-item feature"><a href="{% url 'coordinator:feature' project_id %}">Feature Analysis</a> </li>
+        <li class="divider"></li>
+        <li class="menu-item heading"><span>API Management </span>
+        <li class="menu-item deploy"><a href="{% url 'coordinator:deploy' project_id %}">Deploy Model</a>
+        <li class="menu-item api"><a href="{% url 'coordinator:api_status' project_id %}">API Status</a> </li>
+    </ul>
+    <a href="#" data-activates="project-nav" class="sidebar-collapse btn-floating btn-medium waves-effect waves-light hide-on-large-only cyan"><i class="mdi-navigation-menu"></i></a>
+{% endblock %}
 
 {% block content %}
 
     <!--card stats start-->
     <div class="row">
-        <div id="project-nav" class="col s12 m4 l3 card">
-            <ul>
-                <li class="menu-item"> <strong> <a href="{% url 'coordinator:project' project_id %}" class="black-text" > {{ project.name }} </a> </strong> </li>
-                <li class="divider"></li>
-                <li class="menu-item heading"><span>Data </span>
-                </li>
-                <li class="menu-item data-sources"><a href="{% url 'coordinator:data-sources' project_id %}">Data Sources</a>
-                </li>
-                <li class="menu-item preview"><a href="{% url 'coordinator:preview' project_id %}">Preview</a>
-                </li>
-                <li> &nbsp; </li>
-                <li class="divider"></li>
-                <li class="menu-item heading"><span>Model Building </span>
-                <li class="menu-item experiments"><a href="{% url 'coordinator:experiments' project_id %}">Experiment</a>
-                </li>
-                <li class="menu-item results"><a href="{% url 'coordinator:results' project_id %}">Result</a>
-                </li>
-                <li class="menu-item predict"><a href="{% url 'coordinator:predict' project_id %}">Predict</a>
-                </li>
-                <li class="menu-item feature"><a href="{% url 'coordinator:feature' project_id %}">Feature Analysis</a>
-                </li>
-                <li> &nbsp; </li>
-                <li class="divider"></li>
-                <li class="menu-item heading"><span>API Management </span>
-                <li class="menu-item deploy"><a href="{% url 'coordinator:deploy' project_id %}">Deploy Model</a>
-                <li class="menu-item api"><a href="{% url 'coordinator:api_status' project_id %}">API Status</a>
-                <li> &nbsp; </li>
-                </li>
-            </ul>
-        </div>
 
-        <div class="col s12 m8 l9">
+        <div class="col s12">
             {% block project-content %}
                 <div id="card-stats">
                     <div class="row">

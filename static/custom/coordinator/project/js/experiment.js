@@ -31,9 +31,10 @@ $(document).ready(function() {
 		console.log(data)
 		$("#detail-name").text(data['name'] + " Experiment Details")
 		$("#detail-dataset").text(data['dataset'])
-		var algos = '';
+		var algos = '<ul class="algo-list">';
 		for(algo in data['algorithms'])
-			algos += '<span>'+algo+'</span><br/>';
+			algos += '<li class="algo-item"> <span>'+algo+'</span> </li>';
+		algos += '</ul>';
 		$("#detail-algorithms").html(algos);
 		$("#detail-metric").text(data['metric']);
 		$("#detail-validation").text(data['validation']); 
@@ -42,5 +43,16 @@ $(document).ready(function() {
 		$("#detail-description").text(data['description']);
 
 		$("#detail-card").show();
+	}); 
+
+	$("#validator-select").parent().hide();
+	$("#validation-select").change(function() {
+		if($(this).val() == 'Seperate Dataset') {
+			$("#validator-select").parent().show();
+			$("#validation-parameter").hide();
+		} else {
+			$("#validator-select").parent().hide();
+			$("#validation-parameter").show();
+		}
 	}); 
 }); 

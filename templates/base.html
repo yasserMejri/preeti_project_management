@@ -34,8 +34,6 @@
   <link href="{% static 'theme/css/materialize.min.css' %}" type="text/css" rel="stylesheet" media="screen,projection">
   <link href="{% static 'theme/css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection">
 
-  <link href="{% static 'theme/css/layouts/style-horizontal.css' %}" type="text/css" rel="stylesheet" media="screen,projection">
-
   <!-- Custome CSS-->    
   <link href="{% static 'theme/css/custom/custom.min.css' %}" type="text/css" rel="stylesheet" media="screen,projection">
 
@@ -45,6 +43,7 @@
   <link href="{% static 'theme/js/plugins/chartist-js/chartist.min.css' %}" type="text/css" rel="stylesheet" media="screen,projection">
 
   {% block extra_styles %} {% endblock %}
+  {% block extra_styles_page %} {% endblock %}
 
 </head>
 
@@ -71,7 +70,12 @@
     <div class="wrapper">
 
       <!-- START LEFT SIDEBAR NAV-->
-      {% include 'leftsidebar.html' %}
+      {# {% include 'leftsidebar.html' %} #}
+      <aside id="left-sidebar-nav">
+      {% block letfsidebar %}
+
+      {% endblock %}
+      </aside>
       <!-- END LEFT SIDEBAR NAV-->
 
       <!-- //////////////////////////////////////////////////////////////////////////// -->

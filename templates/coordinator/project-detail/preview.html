@@ -37,7 +37,12 @@
 	                        <td> 
 	                        	<select class="usuage" data-name="{{item.column_name}}">
 	                        		{% for option in options %}
-	                        			<option value="{{ option }}" {% if option == item.usuage %} selected="selected" {% endif %}> {{ option }} </option>
+	                        			<option value="{{ option }}" {% if item.usuage|compare:option %} selected="selected" {% endif %}> {{ option }} </option>
+	                        		{% endfor %}
+	                        	</select>
+	                        	<select class="usuage-rule" data-name="{{item.column_name}}">
+	                        		{% for col in cols %}
+	                        			<option value="{{ col }}" {% if item.usuage|comparecol:col %} selected="selected" {% endif %} > {{col}} </option>
 	                        		{% endfor %}
 	                        	</select>
 	                        </td>
@@ -60,11 +65,26 @@
 			$("#dataset-selector").change(function() {
 				window.location = "{% url 'coordinator:preview' project_id %}"+"?dataset="+$(this).val();
 			}); 
+			$(".usuage-rule").hide();
 			$("#dataset-selector").val({{ dataset_id }});
 			$("#dataset-selector").material_select();
 			$(".usuage").material_select('destroy');
 			$(".usuage").material_select();
+			$(".usuage-rule").material_select('destroy');
+			$(".usuage-rule").material_select();
+			function usuage_update() {
+				$("select.usuage").each(function() {
+					var name;
+					if($(this).val() == 'Rules') {
+						$(this).parent().next().show();
+					} else {
+						$(this).parent().next().hide();
+					}
+				}); 
+			}
+			usuage_update();
 			$(".usuage").change(function() {
+				usuage_update();
 				$.post(
 					"{% url 'coordinator:preview_post' project_id %}", 
 					{
@@ -82,6 +102,25 @@
 						}
 					} ); 
 			}); 
+			$(".usuage-rule").change(function() {
+				$.post(
+					"{% url 'coordinator:preview_post' project_id %}", 
+					{
+						'csrfmiddlewaretoken': $("{% csrf_token %}").val(), 
+						'data': 'Rules-'+$(this).val(), 
+						'column_name': $(this).attr('data-name'),
+						'dataset_id': {{ dataset_id }}
+					}, function(r) {
+						var data = JSON.parse(r);
+						console.log(data);
+						if(data['status'] == 'success') {
+							Materialize.toast('Saved', 2000);
+						} else {
+							Materialize.toast('Failed', 2000);
+						}
+					} ); 
+			}); 
+			$(".tooltipped").
 		}); 
 	</script>
 {% endblock %}

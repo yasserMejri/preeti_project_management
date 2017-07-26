@@ -2520,7 +2520,7 @@ Custom CSS
 }
 
 #project-nav li.menu-item {
-  padding: 12px;
+  padding: 0 12px;
 }
 
 #project-nav li.menu-item:hover {
@@ -2534,10 +2534,6 @@ Custom CSS
 
 #project-nav .menu-item.heading {
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-}
-
-#content {
-  margin-top: 0 !important;
 }
 
 .card-summary strong {
@@ -2647,4 +2643,16 @@ Custom CSS
 
 #add-new {
   overflow-y: scroll;
+}
+
+.tooltipped {
+  cursor: pointer;
+}
+
+.algo-item {
+  list-style-type: circle; 
+}
+
+.algo-list {
+  padding-left: 20px;
 }

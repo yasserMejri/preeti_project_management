@@ -1,0 +1,100 @@
+grp_id,name,brand,manu,manu1,subvarA,subvarB,subvarD
+1,Riceland American Jazmine Rice,Riceland,E,K,F,A,H
+2,Caress Velvet Bliss Ultra Silkening Beauty Bar - 6 Ct,Caress,A,K,H,G,B
+3,Earth's Best Organic Fruit Yogurt Smoothie Mixed Berry,Earth's Best,E,A,H,E,G
+4,Boar's Head Sliced White American Cheese - 120 Ct,Boar's Head,D,G,B,E,C
+5,Back To Nature Gluten Free White Cheddar Rice Thin Crackers,Back To Nature,C,G,H,H,G
+6,Sally Hansen Nail Color Magnetic 903 Silver Elements,Sally Hansen,K,J,C,E,K
+7,Twinings Of London Classics Lady Grey Tea - 20 Ct,Twinings Of London,E,K,B,J,H
+8,Lea & Perrins Marinade In-a-bag Cracked Peppercorn,Lea & Perrins,F,C,D,F,E
+9,Van De Kamp's Fillets Beer Battered - 10 Ct,Van De Kamp's,G,J,G,B,A
+10,Ahold Cocoa Almonds,Ahold,F,B,K,J,G
+11,Honest Tea Peach White Tea,Honest Tea,E,B,K,D,A
+12,Mueller Sport Care Basic Support Level Medium Elastic Knee Support,Mueller,B,G,G,G,G
+13,Garnier Nutritioniste Moisture Rescue Fresh Cleansing Foam,Garnier Nutritioniste,H,F,A,K,C
+14,Pamprin Maximum Strength Multi-symptom Menstrual Pain Relief,Pamprin,A,B,A,A,H
+15,Suave Naturals Moisturizing Body Wash Creamy Tropical Coconut,Suave,E,H,K,J,A
+16,Burt's Bees Daily Moisturizing Cream Sensitive,Burt's Bees,E,B,I,D,E
+17,Ducal Refried Red Beans,Ducal,C,I,D,E,J
+18,Scotch Removable Clear Mounting Squares - 35 Ct,Scotch,B,D,J,F,H
+19,Careone Family Comb Set - 8 Ct,Careone,C,J,C,F,H
+20,Plums Black,Usda Produce,I,G,B,A,H
+21,Doctor's Best Best Curcumin C3 Complex 1000mg Tablets - 120 Ct,Doctor's Best,A,A,E,E,E
+22,Betty Crocker Twin Pack Real Potatoes Scalloped 2 Pouches For 2 Meals - 2 Pk,Betty Crocker,I,E,B,E,H
+23,Reese Mandarin Oranges Segments In Light Syrup,Reese,C,C,B,B,F
+24,Smart Living Charcoal Lighter Fluid,Smart Living,H,K,J,I,J
+25,Hood Latte Iced Coffee Drink Vanilla Latte,Hood,G,J,J,B,I
+26,Triaminic Syrup Night Time Cold & Cough Grape 4oz,Triaminic,K,F,I,A,G
+27,Morton Kosher Salt Coarse,Morton,F,B,C,F,E
+28,Guava,Usda Produce,I,G,D,A,G
+29,Heinz Tomato Ketchup - 2 Ct,Heinz,H,F,G,I,E
+30,Petmate Booda Bones Steak,Petmate,H,F,I,C,D
+31,Zhena's Gypsy Tea Herbal Red Tea Sachets Fire Light Chai - 22 Ct,Zhena's Gypsy Tea,K,C,D,E,G
+32,Barefoot Pinot Grigio  187,Barefoot,J,F,C,D,J
+33,Tomy The First Years Gumdrop Orthodontic Pacifiers 6m+ - 2ct,The First Years,D,C,G,C,K
+34,Halls Menthol Cough Suppresant/oral Anesthetic Drops Honey-lemon - 30 Ct,Halls,G,J,G,D,H
+35,Nature's Way Forskohlii - 60 Ct,Nature's Way,C,C,G,F,D
+36,Rice Bran Gluten Free Dinner Rolls Plain,Deerfields Gluten Free,C,K,I,D,C
+37,Nakano Seasoned Rice Vinegar Original,Nakano,J,B,I,B,H
+38,Sundown Naturals Essential Electrolytes Tropical Punch,Sundown Naturals,K,B,J,C,E
+39,Munchies Sandwich Crackers Cheddar Cheese On Golden Toast Crackers - 8 Pk,Munchies,H,G,K,C,F
+40,Amy's Light & Lean Spaghetti Italiano,Amy's,G,I,C,A,C
+41,P.f. Chang's Home Menu Meal For Two Beef With Broccoli,P.f. Chang's,B,H,G,K,G
+42,Mom's Best Naturals Cereal Toasted Cinnamon Squares,Mom's Best Naturals,K,C,D,H,C
+43,Ferrara Vanilla Syrup,Ferrara,A,C,G,G,I
+44,Elmer's Board Mate Dual Tip Glue Pen,Elmer's,D,I,F,C,A
+45,Kellogg's Disney Pixar Cars 2 Cereal,Kellogg's,H,F,J,F,D
+46,Pizza Sauce,Mama Marys,K,B,A,J,F
+47,Bear Naked Fit Almond Crisp 100% Natural Energy Cereal,Bear Naked,J,B,F,H,A
+48,Dove Men + Care Antiperspirant Deodorant Cool Silver,Dove,I,F,A,E,I
+49,Easy-off Oven Cleaner Lemon Scent,Easy-off,E,K,F,D,H
+50,Choice Organic Teas Black Tea Classic Black - 16 Ct,Choice,B,A,F,C,D
+51,Careone Lubricating Jelly,Careone,D,F,A,I,H
+52,Sacla Italia Sun Dried Pesto Sauce,Sacla,H,J,C,I,G
+53,Huggies Natural Care Wipes - 3 Pk,Huggies,K,K,K,B,H
+54,Serpis Green Olives Stuffed With Spicy Chorizo,Serpis,J,K,K,E,I
+55,Ripken Power Shred Beef Jerky Teriyaki,Ripken,F,A,B,J,H
+56,Arnold Bread Jewish Rye Everything,Arnold,B,F,I,C,G
+57,Traditional Medicinals Herbal Tea Bags Just For Kids Organic Nighty Night - 18 Ct,Traditional Medicinals,C,D,B,I,E
+58,Perry's Ice Cream Panda Paws,Perry's Ice Cream,F,A,C,K,F
+59,Black Swan Shiraz Merlot 1.5,Black Swan,K,J,D,C,A
+60,Maty's All Natural Kids 1+ Caramel Banana Taste Cough Syrup,Maty's,G,F,H,C,A
+61,Kraft Anything Dressing Honey Mustard,Kraft,I,H,B,H,E
+62,Eight O'clock Coffee Dark Italian Roast Ground,Eight O'clock Coffee,I,K,C,A,J
+63,Ahold  Honey Mustard,Ahold,J,H,H,F,I
+64,Enzymatic Therapy  Acidophilus Pearls Active Cultures Dietary Supplement - 30 Ct,Enzymatic Therapy,J,K,G,G,B
+65,Ahold Complete Buttermilk Pancake & Waffle Mix,Ahold,F,E,I,J,E
+66,Salsa Habanero,Mrs Renfro,I,G,C,K,F
+67,Say-it Sandwich & Snack Bags- 60 Pk,Say-it,J,D,C,I,J
+68,Hillshire Farm Deli Select Smoked Ham With Water Added Ultra Thin,Hillshire Farm,H,I,F,C,C
+69,Nestle Coffee-mate Fat Free Hazelnut Flavor Coffee Creamer,Coffee-mate,A,J,J,E,C
+70,Careone Cotton Swabs,Careone,H,G,F,F,J
+71,1-day Vaginal Antifungal Prefilled Applicator 1-dose Treatment,1-day,A,G,I,F,D
+72,Preparation H Hemorrhoidal Ointment,Preparation H,I,H,D,B,G
+73,Roth Kase Mini Cheeseboard Kit Havarti,Roth Kase,A,I,C,C,I
+74,Firm Grip Disposable Nitrile Gloves - 10 Gloves,Firm Grip,E,K,K,J,I
+75,Downy Ultra Infusions Orchid Allure Fabric Softener - 48 Loads,Downy,D,H,B,J,E
+76,Hostess Mini Muffins Chocolate Chip - 20 Ct,Hostess,B,B,J,D,K
+77,Gerber Graduates For Toddlers Lil' Meals Pasta Shells & Cheese,Gerber,K,I,C,B,C
+78,Powerbar Protein Plus High Protein Bar Vanilla Yogurt,Powerbar,H,F,I,C,C
+79,Every Man Jack Shave Cream,Every Man Jack,C,G,J,B,H
+80,Ahold Premium Paper Towels Giant Rolls - 8 Ct,Ahold,F,G,B,K,A
+81,Piacci Parmesan Nuggets,Piacci,A,B,E,G,F
+82,Organix Smoothing Shea Butter Conditioner,Organix,A,D,J,F,E
+83,Dr. Scholl's For Her Rub Relief Strips,Dr Scholl's,H,A,F,K,F
+84,Guida's Whole Milk,Guida's,C,H,I,F,H
+85,Hime Wasabi Powdered Sushi,Hime,A,A,F,F,D
+86,Boneless Pork Shoulder Roast,Usda Meat,K,A,C,G,F
+87,Boneless Pork Shoulder Roast,Usda Meat,B,K,G,H,J
+88,Ahold Simply Enjoy Gourmet Spread Smoky Fig & Roasted Garlic,Simply Enjoy,D,G,A,C,F
+89,Cuisinart Citrus Juicer Pulp Control,Cuisinart,A,C,B,C,I
+90,Velveeta Cheese,Velveeta,B,D,J,C,I
+91,Lotrimin Ultra Antifungal Athlete's Foot Cream,Lotrimin,F,F,E,B,D
+92,Pasta Lensi Gigli #253,Pasta Lensi,J,A,B,H,B
+93,Cherrybrook Kitchen D.w. Sugar Cookie Mix,Cherrybrook Kitchen,K,J,F,G,J
+94,Herb Pharm Black Elderberry Herbal Glycerite Extract,Herb Pharm,D,H,F,K,K
+95,Gold Bond Medicated Cornstarch Plus Baby Powder,Gold Bond,C,C,A,G,G
+96,General Mills Sweet 'n Salty Honey Nut Chex Mix,Chex Mix,H,D,C,G,D
+97,Udi's Soft N' Chewy Granola Bars Chocolate Chip - 5 Ct,Udi's,H,A,G,E,D
+98,Smoked Pork Hocks - 4 Ct,Usda Meat,J,A,D,I,C
+99,Kelapo Extra Virgin Coconut Oil Baking Sticks,Kelapo,H,F,C,H,C

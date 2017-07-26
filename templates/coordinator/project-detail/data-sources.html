@@ -2,10 +2,6 @@
 
 {% load static %}
 
-{% block extra_styles %}
-	<link href="{% static 'theme/js/plugins/animate-css/animate.css' %}" type="text/css" rel="stylesheet" media="screen,projection">
-{% endblock %}
-
 {% block project-content %}
 	<a class="btn blue white-text right waves-effect waves-light modal-trigger" href="#add-new">
 		Load Dataset
@@ -42,6 +38,34 @@
 			    	Please upload new dataset with 'LOAD DATASET'
 			    </div>
 	        {% endif %}
+		</div>
+	</div>
+
+
+	<div class="clearfix"> </div>
+
+	<div class="preview card">
+		<div class="card-content black-text">
+            <table id="data-table">
+                <thead>
+                    <tr>
+                        <th> Dataset </th>
+                        <th> File </th>
+                        <th> Scope </th>
+                        <th> Added at </th>
+                    </tr>
+                </thead>
+                <tbody>
+                	{% for dataset in datasets %}
+	                    <tr>
+	                        <td> {{ dataset.name }} </th>
+	                        <td> {{ dataset.file.name }} </th>
+	                        <td> {{ dataset.scope }} </th>
+	                        <td> {{ dataset.created_time }} </th>
+	                    </tr>
+	                {% endfor %}
+                </tbody>
+            </table>
 		</div>
 	</div>
 
