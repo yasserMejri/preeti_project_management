@@ -60,14 +60,14 @@ def parse_file(file):
             'usuage': usuage[idx]
             })
 
-        if len(uni) < 250:
-            sns.set_context("paper", rc={"font.size":24,"axes.titlesize":24,"axes.labelsize":24})
-            f, ax = plt.subplots(figsize=(50, 25))
-            sns.set(style="whitegrid", color_codes=True)
-            p = sns.countplot(x=v, data=data_train)
-            p.set_xlabel("X Label",fontsize=30)
-            plt.xticks(rotation=90)
-            p.figure.savefig(settings.BASE_DIR + "/static/plot/"+file.name+'-'+v+".png")
+        # if len(uni) < 250:
+        #     sns.set_context("paper", rc={"font.size":24,"axes.titlesize":24,"axes.labelsize":24})
+        #     f, ax = plt.subplots(figsize=(50, 25))
+        #     sns.set(style="whitegrid", color_codes=True)
+        #     p = sns.countplot(x=v, data=data_train)
+        #     p.set_xlabel("X Label",fontsize=30)
+        #     plt.xticks(rotation=90)
+        #     p.figure.savefig(settings.BASE_DIR + "/static/plot/"+file.name+'-'+v+".png")
 
         print "Column Usage Accepted"
         if idx < 2:
