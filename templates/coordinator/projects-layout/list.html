@@ -15,7 +15,12 @@
 
     {% for project in projects %}
         <div class="row item">
-            <div class="col s12 m1 l1"> <span> {{ project.name }} </span> </div>
+
+            <div class="col s12 m1 l1"> 
+                <a href="{% url 'coordinator:project' project.id %}"> 
+                    <span> {{ project.name }} </span> 
+                </a>
+            </div>
             <div class="col s12 m1 l1"> <span> {{ project.created_time|date:"o-n-j"}} </span> </div>
             <div class="col s12 m1 l1"> <span> {{ project.task }} </span> </div>
             <div class="col s12 m1 l1"> <span> 47 </span> </div>
@@ -23,8 +28,10 @@
             <div class="col s12 m1 l1"> <span> {{ project.category }} </span> </div>
             <div class="col s12 m5 l5"> <span> {{ project.description }} </span> </div>
             <div class="col s12 m1 l1"> 
-                <i class="mdi-editor-mode-edit"> </i>
-                <i class="mdi-action-delete"> </i> 
+                <a class="modal-trigger" href="#edit">
+                    <i class="mdi-editor-mode-edit edit-btn" data="{{project.id}}"> </i>
+                </a>
+                <i class="mdi-action-delete delete-btn" data="{{project.id}}"> </i> 
             </div>
         </div> <br/>
     {% endfor %}

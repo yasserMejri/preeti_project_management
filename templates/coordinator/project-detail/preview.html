@@ -1,5 +1,7 @@
 {% extends 'coordinator/project.html' %}
 
+{% load nbsp %}
+
 {% block project-content %}
 
 	<div class="select-data-source">
@@ -40,8 +42,8 @@
 	                        	</select>
 	                        </td>
 	                        <td> {{ item.unique_values }}  </td>
-	                        <td> {{ item.most_frequent }} </td>
-	                        <td> {{ item.least_frequent }} </td>
+	                        <td> {{ item.most_frequent|nbsp|safe }} </td>
+	                        <td> {{ item.least_frequent|nbsp|safe }} </td>
 	                        <td> &nbsp; </td>
 	                    </tr>
 	                {% endfor %}

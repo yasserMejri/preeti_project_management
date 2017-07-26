@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from coordinator import models
+import json
 
 # Create your views here.
 
@@ -23,7 +24,8 @@ def projects(request):
 		layout = 'list'
 
 	if request.method == 'POST':
-		project = models.Project(
+		if request.POST.get('add-new'):
+			project = models.Project(
 				name = request.POST.get('name'), 
 				description = request.POST.get('description'), 
 				visibility = request.POST.get('visibility'), 
@@ -31,9 +33,25 @@ def projects(request):
 				category = request.POST.get('category'), 
 				owner = request.user
 			)
-		project.save()
+			project.save()
+		if request.POST.get('edit'):
+			project = models.Project.objects.get(id=int(request.POST.get('project_id')))
+			project.name = request.POST.get('name') 
+			project.description = request.POST.get('description')
+			project.visibility = request.POST.get('visibility')
+			project.task = request.POST.get('task')
+			project.category = request.POST.get('category')
+			project.owner = request.user
+			project.save()
+		if request.POST.get('delete'):
+			project = models.Project.objects.get(id=int(request.POST.get('project_id')))
+			project.delete()
+			return HttpResponse(json.dumps({
+				'status': 'success', 
+				'request': request.POST
+				}))
 
-	projects = models.Project.objects.all()
+	projects = models.Project.objects.filter(owner=request.user)
 
 	return render(request, 'coordinator/projects.html', {
 		'user': request.user, 
@@ -44,8 +62,11 @@ def projects(request):
 
 def project(request, p_id):
 
+	project = models.Project.objects.get(id=p_id)
+
 	return render(request, 'coordinator/project.html', {
 		'user': request.user, 
-		'project_id': p_id
+		'project_id': p_id,
+		'project': project
 		})
 

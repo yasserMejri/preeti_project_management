@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
 	var data = {
-		labels : ["13", "12", "11", "10", "9", "8", "7", "6", "5", "4", "3", "2", "1", "0"],
+		labels : ["013", "012", "011", "010", "09", "08", "07", "06", "05", "04", "03", "02", "01", "00", "13", "12", "11", "10", "9", "8", "7", "6", "5", "4", "3", "2", "1", "0"],
 		datasets : [
 			{
 				label: "First dataset",
@@ -11,7 +11,7 @@ $(document).ready(function() {
 				pointStrokeColor : "#777",
 				pointHighlightFill : "#aaa",
 				pointHighlightStroke : "#555",
-				data: [100, 50, 20, 40, 80, 50, 80, 60, 20, 90, 80, 50, 85, 40]
+				data: [100, 50, 20, 40, 80, 50, 80, 60, 20, 90, 80, 50, 85, 40, 100, 50, 20, 40, 80, 50, 80, 60, 20, 90, 80, 50, 85, 40]
 			},
 		]
 	};
@@ -71,8 +71,8 @@ $(document).ready(function() {
 		datasetStroke : true,//Boolean - Whether to show a stroke for datasets		
 		datasetStrokeWidth : 3,//Number - Pixel width of dataset stroke		
 		datasetFill : true,//Boolean - Whether to fill the dataset with a colour				
-		animationSteps: 15,// Number - Number of animation steps		
-		animationEasing: "easeOutQuart",// String - Animation easing effect			
+		animationSteps: 1,// Number - Number of animation steps		
+		animationEasing: "",// String - Animation easing effect			
 		tooltipTitleFontFamily: "'Roboto','Helvetica Neue', 'Helvetica', 'Arial', sans-serif",// String - Tooltip title font declaration for the scale label		
 		scaleFontSize: 12,// Number - Scale label font size in pixels		
 		scaleFontStyle: "normal",// String - Scale label font weight style		
@@ -129,7 +129,7 @@ $(document).ready(function() {
 	  }
 	  	
 	  
-	}, 20000);
+	}, 1000);
 
 
 });

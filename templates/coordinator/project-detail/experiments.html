@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block project-content %}
-    <a class="btn blue white-text right waves-effect waves-light">
+    <a class="btn blue white-text right waves-effect waves-light modal-trigger" href="#add-new">
         Create New
     </a>
 
@@ -24,19 +24,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td> Experiment 1 </th>
-                        <td> Content </td>
-                        <td> 5-fold </td>
+                    {% for experiment in experiments %}
+                    <tr data-id="{{experiment.id}}" class="experiment">
+                        <td> {{ experiment.name }} </th>
+                        <td> {{ experiment.metric }} </td>
+                        <td> {{ experiment.validation }} </td>
                         <td> 38 </td>
                         <td> 0.78 </td>
                         <td> 1:18:19 </td>
                         <td> 
-                          <div class="chip green white-text">
-                            Success
+                          <div class="chip blue white-text">
+                            Created
                           </div>
                         </td>
                     </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
@@ -44,44 +46,37 @@
 
 	<div class="clearfix"> </div>
 
-	<div class="preview card">
+	<div class="preview card" id="detail-card">
 		<div class="card-content black-text">
-            <div class="card-title">
-                Experiment 1 Details
+            <div class="card-title" id="detail-name">
+                
             </div>
             <div class="row">
                 <div class="col s12 m6 l4">
                     <div class="summary-head"> Input Dataset </div>
                     <p>
                         <strong> Train: </strong>
-                        <span> NumeraAI </span>
+                        <span id="detail-dataset">  </span>
                     </p>
                 </div>
                 <div class="col s12 m6 l4">
                     <div class="summary-head"> Algorithms </div>
-                    <div>
-                        <span> Extreme Gradient Boosting </span> </br>
-                        <span> LightGBM </span> </br>
-                        <span> Random Forest </span> </br>
-                        <span> Regularized Greedy Forest </span> </br>
-                        <span> Extra Trees </span> </br>
-                        <span> Logistic Regression </span> </br>
-                        <span> Neural Network </span>
+                    <div id="detail-algorithms">
                     </div>
                 </div>
                 <div class="col s12 m6 l4"> 
                     <div class="summary-head"> Tuning </div>
                     <div> 
-                        <strong> Metric to optimize: </strong> <span> Accuracy </span> <br/>
-                        <strong> Validation type: </strong> <span> 5-fold CV, Shuffle, Stratify  </span> <br/>
-                        <strong> Tuning mode: </strong> <span>  Normal  </span> <br/>
-                        <strong> Time limit for single model: </strong> <span> 1 minutes </span>
+                        <strong> Metric to optimize: </strong> <span id="detail-metric" >  </span> <br/>
+                        <strong> Validation type: </strong> <span id="detail-validation" >   </span> <br/>
+                        <strong> Tuning mode: </strong> <span id="detail-tuning">    </span> <br/>
+                        <strong> Time limit for single model: </strong> <span id="detail-timelimit" >  </span>
                     </div>
                 </div>
                 <div class="col s12 m12 l12">
                     <div class="summary-head"> Description </div>
-                    <p>
-                        Lorem Ipsum
+                    <p id="detail-description">
+                        
                     </p>
                 </div>
             </div>
@@ -90,13 +85,12 @@
 
 
 
-    <div class="add-new card ">
+    <div class="add-new card modal" id="add-new">
         <div class="card-content"> 
             <div class="card-title">
                 Create New Experiment
             </div>
-        </div>
-        <div class="">
+
           <form method="post">
             {% csrf_token %}
               <div class="col s12" id="experiment-form">
@@ -127,21 +121,22 @@
                     <div class="input-field col s12">
                         <label class="active"> Train Dataset </label>
                         <select name="traindata">
-                            <option value="source1"> NumerAi </option>
-                            <option value="source2"> NumerAi2 </option>
+                            {% for dataset in datasets %}
+                                <option value="{{dataset.id}}"> {{ dataset.name }} </option>
+                            {% endfor %}
                         </select>
                     </div>
                     <div class="input-field col s12 m7 l7">
                         <label class="active"> Validation </label>
-                        <select name="traindata">
+                        <select name="validation">
                             <option value="source1"> k-fold </option>
                             <option value="source2"> Train/Test </option>
                             <option value="source2"> Seperate Dataset </option>
                         </select>
                     </div>
                     <div class="input-field col s12 m5 l5">
-                        <label class="active"> Folds </label>
-                        <input type="number" name="kvalue" />
+                        <label class="active"> parameter </label>
+                        <input type="text" name="validation-parameter" />
                     </div>
                     <div class="clearfix"> </div>
                     <div class="input-field col s12">
@@ -151,7 +146,7 @@
                     <div class="switch col s12">
                       Auto Group: 
                       <label>
-                        <input type="checkbox">
+                        <input type="checkbox" name="autogroup">
                         <span class="lever"></span> 
                       </label>
                     </div>
@@ -160,99 +155,36 @@
 
                   <div class="step">
                     <ul class="collapsible collapsible-accordion" data-collapsible="expandable">
-
+                    {% for name, fields in algorithms.items %}
                         <li class="stepitem">
                             <div class="heading collapsible-header">
-                                <label> Random Forest </label>
+                                <label> {{ name }} </label>
                                 <div class="switch right">
                                     <label class="">
                                         Off 
-                                        <input type="checkbox" name="random-forest" /> 
+                                        <input type="checkbox" name="{{ name }}" /> 
                                         <span class="lever"> </span> 
                                         On
                                     </label>
                                 </div>
                             </div>
                             <div class="subcontent collapsible-body">
-                                <div class="input-field">
-                                    <label> n_estimation </label>
-                                    <input type="text" name="n-est" />
-                                </div>
-                                <div class="input-field">
-                                    <label> min_split </label>
-                                    <input type="text" name="min_split" />
-                                </div>
-                                <div class="switch">
-                                    Optimize
-                                    <label>
-                                        <input type="checkbox" name="optimize" /> 
-                                        <span class="lever"> </span> 
-                                    </label>
-                                </div>
+                                {% with forloop.counter0 as algo_index %}
+                                {% for field_name, field_values in fields.items %}
+                                    <div class="input-field">
+                                        <label class="active" > {{ field_name }} </label>
+                                        <select name="{{name}}-{{field_name}}">
+                                            {% for value in field_values %}
+                                                <option> {{ value }} </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                {% endfor %}
+                                {% endwith %}
                             </div>
                         </li>
+                    {% endfor %}
 
-                        <li class="stepitem">
-                            <div class="heading collapsible-header ">
-                                <label> Extra Trees</label>
-                                <div class="switch right">
-                                    <label class="">
-                                        Off 
-                                        <input type="checkbox" name="random-forest" /> 
-                                        <span class="lever"> </span> 
-                                        On
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="subcontent collapsible-body">
-                                <div class="input-field">
-                                    <label> n_estimation </label>
-                                    <input type="text" name="n-est" />
-                                </div>
-                                <div class="input-field">
-                                    <label> min_split </label>
-                                    <input type="text" name="min_split" />
-                                </div>
-                                <div class="switch">
-                                    Optimize
-                                    <label>
-                                        <input type="checkbox" name="optimize" /> 
-                                        <span class="lever"> </span> 
-                                    </label>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="stepitem">
-                            <div class="heading collapsible-header ">
-                                <label> XGBoost!  </label>
-                                <div class="switch right">
-                                    <label class="">
-                                        Off 
-                                        <input type="checkbox" name="random-forest" /> 
-                                        <span class="lever"> </span> 
-                                        On
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="subcontent collapsible-body">
-                                <div class="input-field">
-                                    <label> n_estimation </label>
-                                    <input type="text" name="n-est" />
-                                </div>
-                                <div class="input-field">
-                                    <label> min_split </label>
-                                    <input type="text" name="min_split" />
-                                </div>
-                                <div class="switch">
-                                    Optimize
-                                    <label>
-                                        <input type="checkbox" name="optimize" /> 
-                                        <span class="lever"> </span> 
-                                    </label>
-                                </div>
-                            </div>
-                        </li>
                     </ul>
                   </div>
 
@@ -266,8 +198,8 @@
                     </div>
                     <div class="range-field stepitem">
                         <div class="heading"> <label> Time Limit </label> </div>
-                        <input type="range" id="test5" min="0" max="100" />
-                        <label data-value="test5"> 20 mins </label>
+                        <input type="range" id="timelimit" min="0" max="100" name="timelimit" />
+                        <label id="timelimit-value"> 20 mins </label>
                     </div>
                   </div>
 
@@ -290,5 +222,18 @@
 {% endblock %}
 
 {% block extra_scripts_project %}
+    <script type="text/javascript">
+        var exp_data = JSON.parse('{ {% for exp in experiments %}' +
+            '"{{exp.id}}":{ ' +
+                '"name":"{{exp.name}}", ' +
+                '"dataset":"{{exp.dataset.name}}", ' +
+                '"algorithms":{{exp.algorithms|safe}}, ' + 
+                '"metric": "{{exp.metric}}", ' + 
+                '"validation": "{{exp.validation}}", ' +
+                '"tuning": "normal", ' +
+                '"timelimit": "{{exp.timelimit}}", ' +
+                '"description": "{{exp.description}}"' +
+            '}, {% endfor %}}'.replace('}, }', '} }'))
+    </script>
     <script type="text/javascript" src="{% static 'custom/coordinator/project/js/experiment.js' %}"></script>
 {% endblock %}

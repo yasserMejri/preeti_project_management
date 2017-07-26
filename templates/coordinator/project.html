@@ -15,7 +15,7 @@
     <div class="row">
         <div id="project-nav" class="col s12 m4 l3 card">
             <ul>
-                <li class="menu-item"> <strong> <a href="{% url 'coordinator:project' project_id %}" class="black-text" > Project A </a> </strong> </li>
+                <li class="menu-item"> <strong> <a href="{% url 'coordinator:project' project_id %}" class="black-text" > {{ project.name }} </a> </strong> </li>
                 <li class="divider"></li>
                 <li class="menu-item heading"><span>Data </span>
                 </li>

@@ -33,3 +33,18 @@ class DataSet(models.Model):
 	def __str__(self):
 		return self.name
 
+class Experiment(models.Model):
+	name = models.CharField(max_length=50)
+	dataset = models.ForeignKey(DataSet)
+	validation = models.CharField(max_length=20)
+	validation_param = models.CharField(max_length=10)
+	description = models.TextField()
+	autogroup = models.BooleanField(default=False)
+	algorithms = models.TextField()
+	metric = models.CharField(max_length=50)
+	timelimit = models.IntegerField()
+	project = models.ForeignKey(Project)
+
+	def __str__(self):
+		return self.name
+

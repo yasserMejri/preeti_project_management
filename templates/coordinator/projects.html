@@ -35,7 +35,7 @@
     </div>
 
     <div id="add_new" class="modal">
-        <form action="" method="POST" >
+        <form method="POST" >
             {% csrf_token %}
             <div class="modal-content">
                 <h5> Add New Project </h5>
@@ -77,14 +77,75 @@
             </div>
             <div class="modal-footer">
                 <a href="#" class="waves-effect waves-red btn-flat modal-action modal-close">Cancel</a>
-                <input type="submit" class="waves-effect waves-green btn-flat modal-action modal-close" name="add_new" value="Create" >
+                <input type="submit" class="waves-effect waves-green btn-flat modal-action modal-close" name="add-new" value="Create" >
             </div>
         </form>
     </div>
+
+    <div id="edit" class="modal">
+        <form  method="POST" >
+            <input type="hidden" name="project_id" id="edit-pid" />
+            {% csrf_token %}
+            <div class="modal-content">
+                <h5> Edit Project </h5>
+                <div class="input-field">
+                    <input id="edit-project-name" type="text" name="name"/>
+                    <label for="edit-project-name" class="active"> Project Name </label>
+                </div>
+                <div class="input-field">
+                    <textarea id="edit-project-note" name="description" class="materialize-textarea" ></textarea>
+                    <label for="edit-project-note" class="active"> Project Description </label>
+                </div><br/>
+                <div class="input-field">
+                    <label class="active"> Visibility </label>
+                    <select id="edit-visibility" name="visibility">
+                      <option value="" disabled selected>Choose your option</option>
+                      <option value="Private">Private</option>
+                      <option value="Public (View only)">Public (View only)</option>
+                      <option value="Public (Edit)">Public (Edit)</option>
+                    </select>
+                </div> <br/>
+                <div class="input-field">
+                    <label class="active"> Task </label>
+                    <select id="edit-task" name="task">
+                      <option value="" disabled selected>Choose your option</option>
+                      <option value="Classfication">Classfication</option>
+                      <option value="Classfication - Deep Learning">Classfication - Deep Learning</option>
+                      <option value="Classfication - XYZ">Classfication - XYZ</option>
+                    </select>
+                </div> <br/>
+                <div class="input-field">
+                    <label class="active"> Category </label>
+                    <select id="edit-category" name="category">
+                      <option value="" disabled selected>Choose your option</option>
+                      <option value="Category A">Category A</option>
+                      <option value="Category B">Category B</option>
+                      <option value="Category C">Category C</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="waves-effect waves-red btn-flat modal-action modal-close">Cancel</a>
+                <input type="submit" class="waves-effect waves-green btn-flat modal-action modal-close" name="edit" value="Update" >
+            </div>
+        </form>
+    </div>
+
     <!--card projects end-->
 
 {% endblock %}
 
 {% block extra_scripts %}
+    <script type="text/javascript">
+        var projects_data = JSON.parse('{ {%for project in projects %} '+
+            '"{{project.id}}":{ ' +
+                '"name": "{{project.name}}",' +
+                '"visibility": "{{project.visibility}}",' +
+                '"category": "{{project.category}}",' +
+                '"task": "{{project.task}}",' +
+                '"description": "{{project.description|linebreaksbr}} "' +
+            '}, {% endfor %} }'.replace('},  }', '} }'))
+        var csrf = $("{% csrf_token %}").val();
+    </script>
     <script type="text/javascript" src="{% static 'custom/coordinator/js/projects.js' %}"></script>
 {% endblock %}

@@ -4,10 +4,15 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
 from datetime import datetime
 from coordinator import models
 from reportWriter import parse_file
 import json
+import re
+import sys
+from StringIO import StringIO
+import numpy as np
 
 # Create your views here.
 
@@ -51,6 +56,7 @@ def data_sources_project(request, p_id):
 
 	return render(request, 'coordinator/project-detail/data-sources.html', {
 		'user': request.user, 
+		'project': project, 
 		'project_id': p_id, 
 		'page_name': 'data-sources', 
 		'filename': filename, 
@@ -68,7 +74,7 @@ def preview_project(request, p_id):
 
 	datasets = models.DataSet.objects.filter(project=project)
 	data = None
-	options = ["option1", "option2", "option3"]
+	options = ['ID', 'Feature', 'ML']
 	rowcount = colcount = 0
 
 	dataset_id = request.GET.get('dataset')
@@ -83,11 +89,9 @@ def preview_project(request, p_id):
 	except:
 		data = []
 
-	print data
-	print dataset_id
-
 	return render(request, 'coordinator/project-detail/preview.html', {
 		'user': request.user, 
+		'project': project, 
 		'project_id': p_id, 
 		'page_name': 'preview', 
 		'datasets': datasets, 
@@ -107,17 +111,13 @@ def preview_post_project(request, p_id):
 
 	try:
 		dataset = models.DataSet.objects.get(id=int(request.POST.get('dataset_id')))
-		print "COLUMN DATA   "
 		data = json.loads(dataset.column_data)
-		print data
 		idx = 0
 		for item in data:
 			if item['column_name'] == request.POST.get('column_name'):
 				data[idx]['usuage'] = request.POST.get('data')
 				break
 			idx = idx + 1
-		print "Modified -" * 20
-		print data
 		dataset.column_data = json.dumps(data)
 		dataset.save()
 	except:
@@ -127,63 +127,143 @@ def preview_post_project(request, p_id):
 		'request': request.POST
 		}))
 
+def print_to_variable(v):
+    old_stdout = sys.stdout
+    result = StringIO()
+    sys.stdout = result
+    print v
+    sys.stdout = old_stdout
+    return result.getvalue()
+
+def get_algorigthm():
+	data = ''
+	with open(settings.BASE_DIR + '/extra_data/algorithm.data') as f:
+		data = f.read()
+	items = re.findall(r'np.arange\(.*\)', data)
+
+	for item in items:
+		tp = print_to_variable(eval(item)).replace('  ', ',')
+		data = data.replace(item, tp)
+	items = re.findall(r'range\(.*\)', data)
+
+	for item in items:
+		tp = print_to_variable(eval(item))
+		data = data.replace(item, tp)
+	items = re.findall(r'\d+e-\d+', data)
+	for item in items:
+		tp = print_to_variable(eval(item))
+		data = data.replace(item, tp)
+	items = re.findall(r'\d+\.', data)
+	for item in items:
+		tp = print_to_variable(eval(item))
+		data = data.replace(item, tp)
+
+	data = data.replace('\n','').replace('\t','').replace('\r','').replace('True', '"True"').replace('False', '"False"').replace(',]',']')
+
+	return json.loads(data)
+
 @login_required
 def experiments_project(request, p_id):
 
-	project = models.Project.object.get(id=p_id)
+	project = models.Project.objects.get(id=p_id)
+
+	data = get_algorigthm()
+
+	if request.method == 'POST':
+		algo = {}
+		for key in request.POST:
+			if request.POST.get(key) == 'on' and key.find('autogroup') == -1:
+				algo[key] = {}
+		for key in algo:
+			for subkey in request.POST:
+				if subkey.find(key) != -1 and subkey != key:
+					algo[key][subkey.replace(key+'-', '')] = request.POST.get(subkey)
+
+		exp = models.Experiment(
+			name = request.POST.get('name'), 
+			dataset = models.DataSet.objects.get(id=int(request.POST.get('traindata'))), 
+			validation = request.POST.get('validation'), 
+			validation_param = request.POST.get('validation-parameter'), 
+			description = request.POST.get('description'), 
+			autogroup = True if request.POST.get('autogroup') else False, 
+			algorithms = json.dumps(algo), 
+			metric = request.POST.get('metric'), 
+			timelimit = request.POST.get('timelimit'), 
+			project = project
+		)
+		exp.save()
+
+
+	datasets = models.DataSet.objects.filter(project = project)
+
+	experiments = models.Experiment.objects.filter(project = project)
 
 	return render(request, 'coordinator/project-detail/experiments.html', {
 		'user': request.user, 
+		'project': project, 
 		'project_id': p_id, 
-		'page_name': 'experiments'
+		'page_name': 'experiments',
+		'datasets': datasets, 
+		'experiments': experiments, 
+		'algorithms': data
 		}) 
 
+@login_required
 def results_project(request, p_id):
 
-	project = models.Project.object.get(id=p_id)
+	project = models.Project.objects.get(id=p_id)
 
 	return render(request, 'coordinator/project-detail/results.html', {
 		'user': request.user, 
+		'project': project, 
 		'project_id': p_id, 
 		'page_name': 'results'
 		}) 
 
+@login_required
 def predict_project(request, p_id):
 
-	project = models.Project.object.get(id=p_id)
+	project = models.Project.objects.get(id=p_id)
 
 	return render(request, 'coordinator/project-detail/predict.html', {
 		'user': request.user, 
+		'project': project, 
 		'project_id': p_id, 
 		'page_name': 'predict'
 		}) 
 
+@login_required
 def feature_project(request, p_id):
 
-	project = models.Project.object.get(id=p_id)
+	project = models.Project.objects.get(id=p_id)
 
 	return render(request, 'coordinator/project-detail/feature.html', {
 		'user': request.user, 
+		'project': project, 
 		'project_id': p_id, 
 		'page_name': 'feature'
 		}) 
 
+@login_required
 def deploy_project(request, p_id):
 
-	project = models.Project.object.get(id=p_id)
+	project = models.Project.objects.get(id=p_id)
 
 	return render(request, 'coordinator/project-detail/deploy.html', {
 		'user': request.user, 
+		'project': project, 
 		'project_id': p_id, 
 		'page_name': 'deploy'
 		}) 
 
+@login_required
 def api_project(request, p_id):
 
-	project = models.Project.object.get(id=p_id)
+	project = models.Project.objects.get(id=p_id)
 
 	return render(request, 'coordinator/project-detail/api.html', {
 		'user': request.user, 
+		'project': project, 
 		'project_id': p_id, 
 		'page_name': 'api'
 		}) 
