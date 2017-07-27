@@ -39,7 +39,7 @@
 {% block content %}
 
     <!--card stats start-->
-    <div class="row">
+    <div class="row with-leftmenu">
 
         <div class="col s12">
             {% block project-content %}
@@ -49,7 +49,7 @@
                         <div class="col s12 m6 l3">
                             <div class="card">
                                 <div class="card-content ">
-                                    <h4 class="card-stats-number">25</h4>
+                                    <h4 class="card-stats-number">{{ datasets }}</h4>
                                     <p class="card-stats-title"> Data Sources </p>
                                 </div>
                             </div>
@@ -57,7 +57,7 @@
                         <div class="col s12 m6 l3">
                             <div class="card">
                                 <div class="card-content ">
-                                    <h4 class="card-stats-number">253</h4>
+                                    <h4 class="card-stats-number">{{ experiments }}</h4>
                                     <p class="card-stats-title">  Exprements</p>
                                 </div>
                             </div>

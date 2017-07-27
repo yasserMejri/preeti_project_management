@@ -64,9 +64,15 @@ def project(request, p_id):
 
 	project = models.Project.objects.get(id=p_id)
 
+	datasets = len(models.DataSet.objects.filter(project = project))
+
+	experiments = len(models.Experiment.objects.filter(project = project))
+
 	return render(request, 'coordinator/project.html', {
 		'user': request.user, 
 		'project_id': p_id,
-		'project': project
+		'project': project, 
+		'datasets': datasets, 
+		'experiments': experiments
 		})
 

@@ -18,7 +18,7 @@ body {
 }
 
 #main {
-  padding-left: 240px;
+  /*padding-left: 240px;*/
 }
 
 footer {
@@ -2655,4 +2655,8 @@ Custom CSS
 
 .algo-list {
   padding-left: 20px;
+}
+
+.with-leftmenu {
+  padding-left: 240px;
 }

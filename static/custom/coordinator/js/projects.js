@@ -23,19 +23,30 @@ $(document).ready(function() {
 		$("#edit-category").material_select();
 	}); 
 	$(".delete-btn").click(function() {
-		var elem = $(this).parentsUntil('.item');
-		$.post(window.location,  {
-			'csrfmiddlewaretoken': csrf, 
-			'project_id': $(this).attr('data'), 
-			'delete': true
-		}, function(r) {
-			var data = JSON.parse(r);
-			if(data.status == 'success') {
-				Materialize.toast('Deleted!', 2000);
-				elem.remove();
-			} else {
-				Materialize.renderToStaticMarkup()
-			}
-		})
+		var btn = $(this)
+	    swal({    title: "Are you sure?",
+            text: "You will not be able to recover this project!",   
+            type: "warning",   
+            showCancelButton: true,   
+            confirmButtonColor: "#DD6B55",   
+            confirmButtonText: "Yes, delete it!",   
+            closeOnConfirm: true }, 
+            function(){   
+				var elem = $(btn).parentsUntil('.item');
+				$.post(window.location,  {
+					'csrfmiddlewaretoken': csrf, 
+					'project_id': $(btn).attr('data'), 
+					'delete': true
+				}, function(r) {
+					var data = JSON.parse(r);
+					if(data.status == 'success') {
+						Materialize.toast('Deleted!', 2000);
+						elem.remove();
+					} else {
+						Materialize.renderToStaticMarkup()
+					}
+				});
+				return false;
+            });
 	}); 
 }); 

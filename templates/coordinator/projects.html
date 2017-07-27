@@ -4,7 +4,12 @@
 
 {% block page_title %} Projects {% endblock %}
 
+{% block extra_styles %}
+    <link href="{% static 'theme/js/plugins/sweetalert/dist/sweetalert.css' %}" type="text/css" rel="stylesheet" media="screen,projection">
+{% endblock %}
+
 {% block content %}
+
     <!--card projects start-->
     <div id="basic-card" class="section">
         <div class="row">
@@ -136,6 +141,7 @@
 {% endblock %}
 
 {% block extra_scripts %}
+    <script type="text/javascript" src="{% static 'theme/js/plugins/sweetalert/dist/sweetalert.min.js' %}"></script>   
     <script type="text/javascript">
         var projects_data = JSON.parse('{ {%for project in projects %} '+
             '"{{project.id}}":{ ' +

@@ -8,11 +8,9 @@
 
                   <ul id="usermenu-dropdown" class="dropdown-content">
                     <li><a href="{% url 'auth:profile' %}"><i class="mdi-action-face-unlock"></i> Profile</a> </li>
-                    <li><a href="#"><i class="mdi-action-settings"></i> Settings</a> </li>
-                    <li><a href="#"><i class="mdi-communication-live-help"></i> Help</a> </li>
-                    <li class="divider"></li>
-                    <li><a href="#"><i class="mdi-action-lock-outline"></i> Lock</a> </li>
+
                     <li><a href="{% url 'auth:logout' %}"><i class="mdi-hardware-keyboard-tab"></i> Logout</a> </li>
+                    <li><a href="{% url 'coordinator:projects' %}"> <i class="mdi-action-view-carousel"></i> Projects </a> </li>
                   </ul>
 
                   <ul class="left">                      
