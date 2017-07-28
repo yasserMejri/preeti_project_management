@@ -54,8 +54,8 @@
                     </thead>
                     <tbody>
                         {% for model in emodels %}
-                        <tr>
-                            <td class="model-handle" data-id="{{model.id}}" > {{ model.uuid }} </td>
+                        <tr class="model-handle" data-id="{{model.id}}" >
+                            <td> {{ model.uuid }} </td>
                             <td> {{ model.dataset.name }} : {{ model.column }} </td>
                             <td> {{ model.experiment.validation }} </td>
                             <td> {{ model.experiment.metric }} </td>
@@ -148,10 +148,19 @@
             $(".start-computation").hide();
             $(".download-predictions").hide(); 
 
-            $(".model-handle").click(function() {
-                $(".start-computation").show();
-                $("#model-id").val($(this).attr('data-id'));
-            }); 
+            function model_event_attach() {
+                $(".model-handle").click(function() {
+                    $(".model-selected").removeClass("model-selected");
+                    $(this).addClass('model-selected');
+
+                    $(".start-computation").show();
+                    $("#model-id").val($(this).attr('data-id'));
+                }); 
+
+                $(".paginate_button").click(function() {
+                    setTimeout(model_event_attach, 200);
+                }); 
+            }
 
             $("#start-computation").click(function() {
                 $("#file-input").click();
@@ -189,6 +198,8 @@
                 }); 
                 return false;
             })
+
+            model_event_attach();
         }); 
     </script>
 {% endblock %}

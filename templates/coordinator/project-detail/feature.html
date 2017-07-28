@@ -47,8 +47,8 @@
                     </thead>
                     <tbody>
                         {% for model in emodels %}
-                        <tr>
-                            <td class="model-handle" data-id="{{model.id}}" > {{ model.uuid }} </td>
+                        <tr class="model-handle" data-id="{{model.id}}" >
+                            <td> {{ model.uuid }} </td>
                             <td> {{ model.dataset.name }} : {{ model.column }} </td>
                             <td> {{ model.experiment.validation }} </td>
                             <td> {{ model.experiment.metric }} </td>
@@ -94,20 +94,28 @@
                 reload();
             })
 
-            $(".model-handle").click(function() {
-                var model_id = $(this).attr('data-id');
-                $.post(
-                    '{% url "coordinator:feature" project_id %}', 
-                    {
-                        'csrfmiddlewaretoken': $("{% csrf_token %}").val(), 
-                        'model-id': model_id, 
-                        'action': 'get_model_chart'
-                    }, function(r) {
-                        var data = JSON.parse(r);
-                        console.log(data);
-                        chartdraw(data['result']);
-                    } );
-            }); 
+            function model_event_attach() {
+                $(".model-handle").click(function() {
+                    $(".model-selected").removeClass("model-selected");
+                    $(this).addClass('model-selected');
+                    var model_id = $(this).attr('data-id');
+                    $.post(
+                        '{% url "coordinator:feature" project_id %}', 
+                        {
+                            'csrfmiddlewaretoken': $("{% csrf_token %}").val(), 
+                            'model-id': model_id, 
+                            'action': 'get_model_chart'
+                        }, function(r) {
+                            var data = JSON.parse(r);
+                            console.log(data);
+                            chartdraw(data['result']);
+                        } );
+                }); 
+
+                $(".paginate_button").click(function() {
+                    setTimeout(model_event_attach, 200);
+                }); 
+            }
 
             function chartdraw(data) {
                  var BarChartSampleData = {
@@ -133,6 +141,8 @@
                     document.getElementById("feature-analysis").getContext("2d")
                 ).Bar(BarChartSampleData,{ responsive:true });
             }
+
+            model_event_attach();
 
         }); 
     </script>

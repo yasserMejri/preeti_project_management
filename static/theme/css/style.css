@@ -2678,3 +2678,7 @@ Custom CSS
   text-overflow: ellipsis;
   overflow: hidden;  
 }
+
+.model-selected {
+  background-color: #ccc !important;
+}
