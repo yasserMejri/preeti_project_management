@@ -35,7 +35,7 @@ def predict(param):
 		'prediction': '5-fold', 
 		'prediction_score': '48', 
 		'time': '1:18:19', 
-		'download_link': static('downloadfile')
+		'download_link': 'downloadfile'
 	}
 
 	return result
@@ -47,7 +47,7 @@ def model_feature(param):
 	y_list = []
 	x_list = range(0,10)
 	for i in x_list:
-		y_list = random.random()
+		y_list.append(random.random())
 	result = {
 		'x': x_list, 
 		'y': y_list

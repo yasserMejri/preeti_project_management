@@ -236,10 +236,6 @@ def create_models(exp):
 @login_required
 def experiments_project(request, p_id):
 
-	# result = experiment.delay('message')
-	# while not result.ready():
-	# 	print 'ready?'
-
 	project = models.Project.objects.get(id=p_id)
 
 	data = get_algorigthm()
@@ -383,15 +379,9 @@ def predict_project(request, p_id):
 				'input_file': settings.BASE_DIR+'/TEMP/'+input_file.name
 			}
 			result = predict.delay(message)
+			result = result.get()
 
-			result = {
-				'algorithm_id': 'ae4989-389984-9984	',
-				'algorithm': 'Random Forest', 
-				'prediction': '5-fold', 
-				'prediction_score': '48', 
-				'time': '1:18:19', 
-				'download_link': static('downloadfile')
-			}
+			result['download_link'] = static(result['download_link'])
 
 			return HttpResponse(json.dumps({
 				'status': 'success', 
@@ -444,14 +434,8 @@ def feature_project(request, p_id):
 				'uuid': emodel.uuid
 			}
 			result = model_feature.delay(message)
-			y_list = []
-			x_list = range(0,10)
-			for i in x_list:
-				y_list.append(random.random())
-			result = {
-				'x': x_list, 
-				'y': y_list
-			}
+			result = result.get()
+
 			return HttpResponse(json.dumps({
 				'status': 'success', 
 				'result': result
