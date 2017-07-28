@@ -289,8 +289,8 @@ def experiments_project(request, p_id):
 		message['timelimit'] = exp.timelimit
 
 		result = experiment.delay(message)
-		# exp.f1_score = result['f1_score']
-		# exp.total_time_spent = result['total_time_spent']
+		
+		# result = result.get()
 
 		exp.save()
 
