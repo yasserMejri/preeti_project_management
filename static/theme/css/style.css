@@ -2679,6 +2679,10 @@ Custom CSS
   overflow: hidden;  
 }
 
+.model-handle {
+  cursor: pointer;
+}
+
 .model-selected {
-  background-color: #ccc !important;
+  background-color: #aaecff !important;
 }
