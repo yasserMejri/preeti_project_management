@@ -1,13 +1,13 @@
 <div class="card list-view projects">
     <div class="col s12 m12 l12 card-content">
         <div class="row">
-            <div class="col s12 m1 l1"> <strong> Name </strong> </div>
+            <div class="col s12 m2 l2"> <strong> Name </strong> </div>
             <div class="col s12 m1 l1"> <strong> Created on </strong> </div>
             <div class="col s12 m1 l1"> <strong> Scope </strong> </div>
             <div class="col s12 m1 l1"> <strong> Models </strong> </div>
             <div class="col s12 m1 l1"> <strong> Visibility </strong> </div>
             <div class="col s12 m1 l1"> <strong> Category </strong> </div>
-            <div class="col s12 m5 l5"> <strong> Description </strong> </div>
+            <div class="col s12 m4 l4"> <strong> Description </strong> </div>
             <div class="col s12 m1 l1"> actions </div>
         </div> 
         <br/> <div class="divider"> </div> <br/>
@@ -16,8 +16,8 @@
     {% for project in projects %}
         <div class="row item">
 
-            <div class="col s12 m1 l1"> 
-                <a href="{% url 'coordinator:project' project.id %}"> 
+            <div class="col s12 m2 l2"> 
+                <a href="{% url 'coordinator:project' project.id %}" class="project-title col s12" title="{{project.name}}"> 
                     <span> {{ project.name }} </span> 
                 </a>
             </div>
@@ -26,12 +26,14 @@
             <div class="col s12 m1 l1"> <span> 47 </span> </div>
             <div class="col s12 m1 l1"> <span> {{ project.visibility }} </span> </div>
             <div class="col s12 m1 l1"> <span> {{ project.category }} </span> </div>
-            <div class="col s12 m5 l5"> <span> {{ project.description }} </span> </div>
+            <div class="col s12 m4 l4"> <span> {{ project.description }} </span> </div>
             <div class="col s12 m1 l1"> 
+            {% if project.owner == user or 'Edit' in project.visibility or user.is_superuser %}
                 <a class="modal-trigger" href="#edit">
                     <i class="mdi-editor-mode-edit edit-btn" data="{{project.id}}"> </i>
                 </a>
                 <i class="mdi-action-delete delete-btn" data="{{project.id}}"> </i> 
+            {% endif %}
             </div>
         </div> <br/>
     {% endfor %}

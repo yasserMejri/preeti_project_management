@@ -2550,6 +2550,7 @@ Custom CSS
   padding: 10px !important;
   color: #777;
   position: relative;
+  overflow: hidden;
 }
 
 .file-uploader > span {
@@ -2659,4 +2660,15 @@ Custom CSS
 
 .with-leftmenu {
   padding-left: 240px;
+}
+
+.floating-form {
+  position: absolute;
+  bottom: -33px;
+}
+
+.project-title {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;  
 }

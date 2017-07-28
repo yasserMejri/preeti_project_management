@@ -3,9 +3,11 @@
 {% load static %}
 
 {% block project-content %}
-	<a class="btn blue white-text right waves-effect waves-light modal-trigger" href="#add-new">
-		Load Dataset
-	</a>
+    {% if project.owner == user or 'Edit' in project.visibility or user.is_superuser %}
+		<a class="btn blue white-text right waves-effect waves-light modal-trigger" href="#add-new">
+			Load Dataset
+		</a>
+	{% endif %}
 
 	<div class="preview-data-source card col s12 m12 l12">
         <div class="card-content black-text">
@@ -69,35 +71,37 @@
 		</div>
 	</div>
 
-	<div class="add-new card modal col s12 m3 l3 offset-l1 offset-m1" id="add-new">
-		<div class="card-content black-text modal-content  col s12 m12 l12">
-			<span class="card-title">
-				Add New Dataset
-			</span>
-			<div class="add-form">
-				<form method="post" enctype='multipart/form-data'>
-					{% csrf_token %}
-					<div class="input-field">
-						<label class="active"> Dataset Name </label>
-						<input type = "text" name="dset_name" />
-					</div>
-					<div class="file-uploader center-align col s5 m5 l5">
-						<i class="mdi-file-file-upload"> </i>
-						<span> Drag and Drop to upload </span>
-						<input type="file" name="file" id="file-input" class="file-input" accept=".xls,.xlsx,.csv,.tsv" />
-					</div> 
-					<p>
-                      <input type="checkbox" class="filled-in" id="filled-in-box" name="validate" >
-                      <label for="filled-in-box">Use this data set for validation</label>
-                    </p> <br/>
-                    <div class="row">
-                    	<a href="#" class="waves-effect waves-red btn-flat modal-action modal-close">Cancel</a>
-                    	<input type="submit" class="btn blue waves-light waves-effect" name="add-new" value = "Submit" />
-                    </div>
-				</form>
+    {% if project.owner == user or 'Edit' in project.visibility or user.is_superuser %}
+		<div class="add-new card modal col s12 m3 l3 offset-l1 offset-m1" id="add-new">
+			<div class="card-content black-text modal-content  col s12 m12 l12">
+					<span class="card-title">
+						Add New Dataset
+					</span>
+				<div class="add-form">
+					<form method="post" enctype='multipart/form-data'>
+						{% csrf_token %}
+						<div class="input-field">
+							<label class="active"> Dataset Name </label>
+							<input type = "text" name="dset_name" />
+						</div>
+						<div class="file-uploader center-align col s5 m5 l5">
+							<i class="mdi-file-file-upload"> </i>
+							<span id="filename"> Drag and Drop to upload </span>
+							<input type="file" name="file" id="file-input" class="file-input" accept=".xls,.xlsx,.csv,.tsv" />
+						</div> 
+						<p>
+	                      <input type="checkbox" class="filled-in" id="filled-in-box" name="validate" >
+	                      <label for="filled-in-box">Use this data set for validation</label>
+	                    </p> <br/>
+	                    <div class="row">
+	                    	<a href="#" class="waves-effect waves-red btn-flat modal-action modal-close">Cancel</a>
+	                    	<input type="submit" class="btn blue waves-light waves-effect" name="add-new" value = "Submit" />
+	                    </div>
+					</form>
+				</div>
 			</div>
 		</div>
-	</div>
+	{% endif %}
 
 {% endblock %}
 

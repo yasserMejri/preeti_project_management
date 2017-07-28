@@ -44,7 +44,20 @@ class Experiment(models.Model):
 	metric = models.CharField(max_length=50)
 	timelimit = models.IntegerField()
 	project = models.ForeignKey(Project)
+	model_count = models.IntegerField(default=0)
 
 	def __str__(self):
 		return self.name
+
+class EModel(models.Model):
+	uuid = models.CharField(max_length=50)
+	algorithm = models.CharField(max_length=255)
+	algorithm_param = models.CharField(max_length=255)
+	dataset = models.ForeignKey(DataSet)
+	column = models.CharField(max_length=255)
+	experiment = models.ForeignKey(Experiment, default=1)
+	status = models.CharField(max_length=50, default="Initiated")
+
+	def __str__(self):
+		return self.uuid
 

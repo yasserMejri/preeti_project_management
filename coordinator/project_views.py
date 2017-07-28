@@ -13,10 +13,40 @@ import re
 import sys
 from StringIO import StringIO
 import numpy as np
+import uuid
 
 from tasks import experiment
 
 # Create your views here.
+
+
+all_params = []
+l_params = []
+l_algo = ''
+l_dataset = None
+l_column = ''
+
+def loop_params(exp, depth):
+	global l_params, l_algo, l_dataset, l_column, all_params
+	if depth == len(all_params):
+		emodel = models.EModel(
+			uuid = uuid.uuid4(), 
+			algorithm = l_algo, 
+			algorithm_param = l_params, 
+			dataset = l_dataset, 
+			column = l_column, 
+			experiment= exp
+			)
+		emodel.save()
+		return
+	for param in all_params[depth]['param_data']:
+		l_params.append({
+			all_params[depth]['param_name']: param
+			})
+		loop_params(exp, depth + 1)
+		l_params = l_params[:-1]
+
+
 
 @login_required
 def data_sources_project(request, p_id):
@@ -80,11 +110,15 @@ def preview_project(request, p_id):
 	datasets = models.DataSet.objects.filter(project=project)
 	data = None
 	options = ['ID', 'Feature', 'ML', 'Rules']
+	cols = []
 	rowcount = colcount = 0
 
 	dataset_id = request.GET.get('dataset')
 	if dataset_id is None:
-		dataset_id = datasets[0].id
+		try:
+			dataset_id = datasets[0].id
+		except:
+			pass
 
 	try:
 		dataset = models.DataSet.objects.get(id=int(dataset_id))
@@ -169,6 +203,32 @@ def get_algorigthm():
 
 	return json.loads(data)
 
+def create_models(exp):
+	global l_params, l_algo, l_dataset, l_column, all_params
+	mls  = []
+
+	a = json.loads(exp.dataset.column_data)
+	for item in a:
+		if item['usuage'] == 'ML' or item['usuage'].find('Rule') != -1:
+			mls.append(item['column_name'])
+	algos = json.loads(exp.algorithms)
+	for algo in algos:
+		all_params = []
+		for param_key in algos[algo]:
+			if param_key == 'optimize':
+				continue
+			all_params.append({
+				'param_name': param_key, 
+				'param_data': algos[algo][param_key].split(',')
+				})
+		l_algo = algo
+		l_dataset = exp.dataset
+		for column in mls:
+			l_column = column
+			loop_params(exp, 0)
+
+
+
 @login_required
 def experiments_project(request, p_id):
 
@@ -208,6 +268,11 @@ def experiments_project(request, p_id):
 		)
 		exp.save()
 
+		create_models(exp)
+
+		exp.model_count = len(models.EModel.objects.filter(experiment = exp))
+		exp.save()
+
 		message = {}
 		message['file'] = {
 			'name': exp.dataset.file.name, 
@@ -244,11 +309,38 @@ def results_project(request, p_id):
 
 	project = models.Project.objects.get(id=p_id)
 
+	experiments = models.Experiment.objects.filter(project = project)
+	active_idx = None
+	emodels = []
+
+	try:
+		active_idx = experiments[0].id
+		if request.GET.get('experiment'):
+			active_idx = int(request.GET.get('experiment'))
+	except:
+		pass
+
+	statuses = ['Done', 'Learning', 'Initiated', 'Error']
+
+	cur_status = request.GET.get('status')
+	try:
+		if cur_status and cur_status != 'all':
+			emodels = models.EModel.objects.filter(experiment = models.Experiment.objects.get(id=active_idx), status=cur_status)
+		else:
+			emodels = models.EModel.objects.filter(experiment = models.Experiment.objects.get(id=active_idx))
+	except:
+		pass
+
 	return render(request, 'coordinator/project-detail/results.html', {
 		'user': request.user, 
 		'project': project, 
 		'project_id': p_id, 
-		'page_name': 'results'
+		'page_name': 'results',
+		'experiments': experiments, 
+		'emodels': emodels, 
+		'statuses': statuses, 
+		'active_idx': active_idx, 
+		'cur_status': cur_status
 		}) 
 
 @login_required

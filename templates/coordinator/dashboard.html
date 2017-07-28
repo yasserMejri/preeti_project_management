@@ -2,6 +2,8 @@
 
 {% load static %}
 
+{% load nbsp %}
+
 {% block page_title %} Dashboard {% endblock %}
 {% block breadcrumbs %}
 	<li class="active">Dashboard</li>
@@ -14,7 +16,7 @@
             <div class="col s12 m4 l_5">
                 <div class="card">
                     <div class="card-content black-text">
-                        <h4 class="card-stats-number">12</h4>
+                        <h4 class="card-stats-number">{{ projects|length }}</h4>
                         <p class="card-stats-title">  Projects </p>
                     </div>
                 </div>
@@ -22,7 +24,7 @@
             <div class="col s12 m4 l_5">
                 <div class="card">
                     <div class="card-content black-text">
-                        <h4 class="card-stats-number">200</h4>
+                        <h4 class="card-stats-number">{{ datasets|length }}</h4>
                         <p class="card-stats-title">  Data Source </p>
                     </div>
                 </div>
@@ -30,7 +32,7 @@
             <div class="col s12 m4 l_5">
                 <div class="card">
                     <div class="card-content black-text">
-                        <h4 class="card-stats-number">253</h4>
+                        <h4 class="card-stats-number">{{ experiments|length }}</h4>
                         <p class="card-stats-title">  Exprements</p>
                     </div>
                 </div>
@@ -38,7 +40,7 @@
             <div class="col s12 m4 l_5">
                 <div class="card">
                     <div class="card-content black-text">
-                        <h4 class="card-stats-number">3421</h4>
+                        <h4 class="card-stats-number">{{ emodels|length }}</h4>
                         <p class="card-stats-title">  Models</p>
                     </div>
                 </div>
@@ -130,12 +132,13 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {% for project in projects %}
                             <tr>
-                                <td> Content </td>
-                                <td> This is longer content </td>
-                                <td> Content </td>
-                                <td> Content </td>
-                                <td> 5-fold </td>
+                                <td> {{ project.name }} </td>
+                                <td> {{ datasets|names:"5"|safe }} </td>
+                                <td> {{ experiments|names:"5"|safe }} </td>
+                                <td> Algorithm </td>
+                                <td> {{ project.validation }} </td>
                                 <td> 0.8945 </td>
                                 <td> </td>
                                 <td> 
@@ -144,6 +147,7 @@
                                   </div>
                                 </td>
                             </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>

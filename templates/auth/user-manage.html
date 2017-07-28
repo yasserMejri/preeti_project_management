@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block extra_styles %}
+	<link href="{% static 'theme/js/plugins/data-tables/css/jquery.dataTables.min.css' %}" type="text/css" rel="stylesheet" media="screen,projection">
+	<link href="{% static 'custom/auth/css/login.css' %}" type="text/css" rel="stylesheet" media="screen,projection">
+    <link href="{% static 'theme/js/plugins/sweetalert/dist/sweetalert.css' %}" type="text/css" rel="stylesheet" media="screen,projection">
+{% endblock %}
+
+{% block content %}
+	
+	<a class="btn blue waves-effect waves-light right modal-trigger add-new" href="#add-new" > Add New User </a>
+
+	<div class="clearfix"> </div>
+
+	{% if error != '' %}
+		<div id="card-alert" class="card red lighten-5 row">
+			<div class="card-content red-text">
+				<span> {{ error }} </span> 
+			</div>
+			<button type="button" class="close red-text" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">×</span>
+			</button>
+		</div>
+	{% endif %}
+
+	<div class="col s12">
+		<h5> Users </h5>
+		<table id="data-table">
+			<thead>
+				<tr>
+					<th> Username </th>
+					<th> Email </th>
+					<th> Status </th>
+					<th> Created Date </th>
+					<th> last Login </th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for user in users %}
+				<tr>
+					<td class="center-align"> 
+						<a class="waves-effect black-text waves-light modal-trigger edit-user" href="#add-new" data-id="{{user.id}}" data-username="{{user.username}}" data-email="{{user.email}}" data-active="{{user.is_active}}">
+							{{ user.username }} 
+						</a>
+					</td>
+					<td> {{ user.email }} </td>
+					<td> 
+						{% if user.is_active %}
+	                        <div class="chip green white-text">
+	                            Active
+	                        </div>
+						{% else %}
+	                        <div class="chip red darken-5 white-text">
+	                            Disabled
+	                        </div>
+						{% endif %}
+					</td>
+					<td> {{ user.date_joined }}</td>
+					<td> {{ user.last_login }} </td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+
+	<div id = "add-new" class="modal">
+		<div class="modal-content">
+			<form class="register-form" id="register-form" method="POST">
+				{% csrf_token %}
+				<input type="hidden" name="user-id" value="-1" class="user-id" />
+				<div class="row">
+					<div class="input-field col s12 center">
+						<h4 id="form-banner"> Add New User </h4>
+						<p class="center">Join to our community now !</p>
+					</div>
+				</div>
+				<div class="row margin">
+					<div class="input-field col s12">
+						<i class="mdi-social-person-outline prefix"></i>
+						<input id="username" type="text" name="username">
+						<label for="username" class="center-align">Username</label>
+					</div>
+				</div>
+				<div class="row margin">
+					<div class="input-field col s12">
+						<i class="mdi-communication-email prefix"></i>
+						<input id="email" type="email" name="email">
+						<label for="email" class="center-align">Email</label>
+					</div>
+				</div>
+				<div class="row margin">
+					<div class="input-field col s12">
+						<i class="mdi-action-lock-outline prefix"></i>
+						<input id="password" type="password" name="password">
+						<label for="password">Password</label>
+					</div>
+				</div>
+				<div class="row margin">
+					<div class="input-field col s12">
+						<i class="mdi-action-lock-outline prefix"></i>
+						<input id="password_again" type="password" name="password_again">
+						<label for="password_again">Password again</label>
+					</div>
+				</div>
+				<div class="row margin">
+					<span class="col s1 offset-s8"> Active </span>
+                    <div class="switch col s3">
+                        <label class="" id="user-active-label">
+                            Off 
+                            <input type="checkbox" name="user-active" id="user-active" /> 
+                            <span class="lever"> </span> 
+                            On
+                        </label>
+                    </div>
+				</div>
+
+				<div class="input-field col s4 right">
+					<input type="submit" class="btn black-text white waves-effect waves-dark col s12" name="action" value="Register Now" id="submit-btn" />
+				</div>
+
+			</form>
+			<div class="clearfix"> </div>
+			<form class="floating-form" id="delete-btn" method="post">
+				{% csrf_token %}
+				<input type="hidden" name="user-id" value="-1" class="user-id" />
+				<input type="hidden" name="action" value="delete" />
+				<div class="input-field col s4" >
+					<a class="btn red white-text waves-effect waves-dark col s12" id="delete-submit-btn">
+						DELETE
+					</a>
+				</div>
+			</form>
+			<br/>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block extra_scripts %}
+    <script type="text/javascript" src="{% static 'theme/js/plugins/data-tables/js/jquery.dataTables.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'theme/js/plugins/jquery-validation/jquery.validate.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'theme/js/plugins/jquery-validation/additional-methods.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'theme/js/plugins/sweetalert/dist/sweetalert.min.js' %}"></script>   
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#data-table").DataTable();
+			$(".add-new").click(function() {
+				$("#form-banner").text("Add New User"); 
+				$("#submit-btn").val("register"); 
+				$("#username").val('');
+				$("#email").val('');
+				$("#password").val('');
+				$("#password_again").val();
+				$("#user-active").prop('checked', false); 
+				$("#delete-btn").hide();
+			}); 
+			$(".edit-user").click(function() {
+				$(".user-id").val($(this).attr('data-id')); 
+				$("#form-banner").text("Edit User"); 
+				$("#submit-btn").val("update"); 
+				$("#username").val($(this).attr('data-username')); 
+				$("#email").val($(this).attr('data-email')); 
+				$("#password").val(''); 
+				$("#password_again").val(''); 
+				if($(this).attr('data-active') == 'True') {
+					$("#user-active").prop('checked', true); 
+				} else {
+					$("#user-active").prop('checked', false); 
+				}
+				$("#delete-btn").show();
+			}); 
+			$("#delete-submit-btn").click(function() {
+			    swal({    title: "Are you sure?",
+		            text: "You will not be able to recover this project!",   
+		            type: "warning",   
+		            showCancelButton: true,   
+		            confirmButtonColor: "#DD6B55",   
+		            confirmButtonText: "Yes, delete it!", 
+		            closeOnConfirm: true }, 
+		            function(){
+		            	$("#delete-btn").submit();
+		            });
+			}); 
+			$("#delete-btn-wrapper").hide();
+		}); 
+	</script>
+	<script type="text/javascript" src="{% static 'custom/auth/js/register.js' %}"> </script>
+{% endblock %}

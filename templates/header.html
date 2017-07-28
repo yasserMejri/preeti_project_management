@@ -27,6 +27,14 @@
                       Projects
                     </a> </li>
 
+                    {% if user.is_superuser %}
+                      <li>
+                        <a href="{% url 'auth:manage' %}" class="waves-effect waves-block waves-light"> 
+                          User Management 
+                        </a>
+                      </li>
+                    {% endif %}
+
                   </ul>
 
                   <ul class="right hide-on-med-and-down">

@@ -1,5 +1,6 @@
 from django import template
 from django.utils.safestring import mark_safe
+from coordinator import models
 
 register = template.Library()
 
@@ -25,3 +26,28 @@ def compare(value, arg):
 @register.filter()
 def comparecol(value, arg):
 	return value.split('-')[-1] == arg
+
+@register.filter()
+def names(value, length):
+	length = int(length)
+	result = '<ul class="algo-list">'
+	for item in value:
+		result = result + '<li class="algo-item">'+item.name+'</li>'
+		if length == 0:
+			break
+		length = length - 1
+	result = result + '</ul>'
+	return result
+
+@register.filter()
+def experiments(value, length=5):
+	exps = models.Experiment.objects.filter(dataset=value)
+	result = '<ul class="algo-list">'
+	for item in exps:
+		result = result + '<li class="algo-item">'+item.name+'</li>'
+		if length == 0:
+			break
+		length = length - 1
+	result = result + '</ul>'
+	return result
+

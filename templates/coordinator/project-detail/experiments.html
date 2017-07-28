@@ -3,9 +3,11 @@
 {% load static %}
 
 {% block project-content %}
-    <a class="btn blue white-text right waves-effect waves-light modal-trigger" href="#add-new">
-        Create New
-    </a>
+    {% if project.owner == user or 'Edit' in project.visibility or user.is_superuser %}
+        <a class="btn blue white-text right waves-effect waves-light modal-trigger" href="#add-new">
+            Create New
+        </a>
+    {% endif %}
 
     <div class="clearfix"> </div> <br/>
 
@@ -29,7 +31,7 @@
                         <td> {{ experiment.name }} </th>
                         <td> {{ experiment.metric }} </td>
                         <td> {{ experiment.validation }} </td>
-                        <td> 38 </td>
+                        <td> {{ experiment.model_count }} </td>
                         <td> 0.78 </td>
                         <td> 1:18:19 </td>
                         <td> 
@@ -84,7 +86,7 @@
 	</div>
 
 
-
+    {% if project.owner == user or 'Edit' in project.visibility or user.is_superuser %}
     <div class="add-new card modal" id="add-new">
         <div class="card-content"> 
             <div class="card-title">
@@ -237,6 +239,7 @@
             </form>
         </div>
     </div>
+    {% endif %}
 
 
 {% endblock %}

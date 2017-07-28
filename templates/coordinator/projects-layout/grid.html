@@ -8,14 +8,16 @@
                 <div class="card ">
                     <div class="card-content black-text">
                         <span class="card-title">
-                            <a href="{% url 'coordinator:project' project.id %}">
+                            <a href="{% url 'coordinator:project' project.id %}" class="col s9 m9 l9 project-title" title="{{ project.name }}" >
                                 {{ project.name }}
                             </a>
-                            <div class="actions right">
-                                <a class="modal-trigger" href="#edit">
-                                    <i class="mdi-editor-mode-edit edit-btn" data="{{project.id}}"> </i>
-                                </a>
-                                <i class="mdi-action-delete delete-btn" data="{{project.id}}"> </i>
+                            <div class="actions col s3 m3 l3">
+                                {% if project.owner == user or 'Edit' in project.visibility or user.is_superuser %}
+                                    <a class="modal-trigger" href="#edit">
+                                        <i class="mdi-editor-mode-edit edit-btn" data="{{project.id}}"> </i>
+                                    </a>
+                                    <i class="mdi-action-delete delete-btn" data="{{project.id}}"> </i>
+                                {% endif %}
                             </div>
                         </span>
                         <div class = "card-summary">

@@ -2,6 +2,7 @@
 
 {% load static %}
 
+{% load nbsp %}
 
 {% block extra_styles %}
   <link href="{% static 'theme/js/plugins/data-tables/css/jquery.dataTables.min.css' %}" type="text/css" rel="stylesheet" media="screen,projection">
@@ -49,7 +50,7 @@
                         <div class="col s12 m6 l3">
                             <div class="card">
                                 <div class="card-content ">
-                                    <h4 class="card-stats-number">{{ datasets }}</h4>
+                                    <h4 class="card-stats-number">{{ datasets|length }}</h4>
                                     <p class="card-stats-title"> Data Sources </p>
                                 </div>
                             </div>
@@ -57,7 +58,7 @@
                         <div class="col s12 m6 l3">
                             <div class="card">
                                 <div class="card-content ">
-                                    <h4 class="card-stats-number">{{ experiments }}</h4>
+                                    <h4 class="card-stats-number">{{ experiments|length }}</h4>
                                     <p class="card-stats-title">  Exprements</p>
                                 </div>
                             </div>
@@ -65,7 +66,7 @@
                         <div class="col s12 m6 l3">
                             <div class="card">
                                 <div class="card-content ">
-                                    <h4 class="card-stats-number">200</h4>
+                                    <h4 class="card-stats-number">{{ emodels|length }}</h4>
                                     <p class="card-stats-title">  Models</p>
                                 </div>
                             </div>
@@ -98,11 +99,12 @@
                                 </tr>
                             </thead>
                             <tbody>
+                            {% for dataset in datasets %}
                                 <tr>
-                                    <td> This is longer Content </th>
-                                    <td> Content </td>
-                                    <td> Content </td>
-                                    <td> 5-fold </td>
+                                    <td> {{ dataset.name }} </th>
+                                    <td> {{ dataset|experiments|safe}} </td>
+                                    <td> Algorithm </td>
+                                    <td> {{ project.validation }} </td>
                                     <td> 0.8945 </td>
                                     <td> &nbsp; </td>
                                     <td> 
@@ -111,6 +113,7 @@
                                       </div>
                                     </td>
                                 </tr>
+                            {% endfor %}
                             </tbody>
                         </table>
                     </div>
