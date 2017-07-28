@@ -4,21 +4,31 @@
 
     <div class="step">
         <div class="step-header col s12 m12 l12">
-            <span class="text col s12 m3 l3"> Step 1 | Select source </span>
-            <div class="col s12 m3 l3">
-                <input name="radio-option" type="radio" value="datasource" id="source1"/>
-                <label for="source1" class="text col s3 m3 l3"> &nbsp; </label>
-                <select name="datasource" class="col s9 m9 l9">
-                    <option value="source1"> NumerAi </option>
-                    <option value="source12"> NumerAi2 </option>
-                </select>
-            </div>
-            <div class="col s12 m3 l3">
-                <input name="radio-option" type="radio" value="query" id="source2" />
-                <label for="source2" class="text col s3 m3 l3" > &nbsp; </label>
-                <input type="text" name="query" class="col s9 m9 l9" />
-            </div>
+            <span class="text col s12 m3 l3"> Step 1 | Select Source </span>
         </div>
+        <div class="select-data-source col s12 m12 l12">
+            <div class="col s12 m2 l2 text align-right" > Experiment: </div>
+            <select name="experiment" class="col s12 m2 l2" id="experiment-selector"> 
+                {% for experiment in experiments %}
+                    <option value="{{ experiment.id }}" {% if experiment.id == active_idx %} selected="selected" {% endif %} > {{ experiment.name }} </option>
+                {% endfor %}
+            </select>
+     
+            <div class="col s12 m1 l1 text" > Status: </div>
+            <select name="status" class="col s12 m2 l2" id="status-selector"> 
+                <option value="all"> All </option>
+                {% for status in statuses %}
+                    <option value="{{ status }}" {% if cur_status == status %} selected="selected" {% endif %}> Only {{ status }} </option>
+                {% endfor %}
+            </select>
+
+            <div class="col s12 m1 l1 text" > Display: </div>
+            <select name="display" class="col s12 m3 l3"> 
+                <option value="source1"> Best by algorithm </option>
+                <option value="source2"> Best by column </option>
+            </select>
+
+        </div> 
     </div>
 
     <div class="step">
@@ -26,12 +36,13 @@
             <span class="text col s12 m3 l3">  Step 2 | Select Model </span>
         </div>
         <div class="clearfix"> </div>
-    	<div class="preview card">
-    		<div class="card-content black-text">
+
+        <div class="preview card">
+            <div class="card-content black-text">
                 <table id="data-table">
                     <thead>
                         <tr>
-                            <th> Experiment </th>
+                            <th> Model </th>
                             <th> Dataset </th>
                             <th> Validation </th>
                             <th> Metric </th>
@@ -42,43 +53,49 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {% for model in emodels %}
                         <tr>
-                            <td> Experiment1 </td>
-                            <td> Content </td>
-                            <td> 5-fold </td>
-                            <td> 38 </td>
+                            <td class="model-handle" data-id="{{model.id}}" > {{ model.uuid }} </td>
+                            <td> {{ model.dataset.name }} : {{ model.column }} </td>
+                            <td> {{ model.experiment.validation }} </td>
+                            <td> {{ model.experiment.metric }} </td>
                             <td> 0.78 </td>
                             <td> 1:18:19 </td>
                             <td> 
                               <div class="chip green white-text">
-                                Success
+                                {{ model.status }}
                               </div>
                             </td>
-                            <td> Random Forest </td>
+                            <td> {{ model.algorithm }} </td>
                         </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
-    		</div>
-    	</div>
+            </div>
+        </div>
+
+
     </div>
 
-    <div class="step">
+    <div class="step start-computation">
         <div class="step-header col s12 m12 l12">
             <span class="text col s12 m3 l3"> Step 3 | Start Computation </span>
         </div>
-        <a class="btn blue waves-effect waves-light"> Start <i class="mdi-navigation-arrow-drop-down right"></i> </a>
+        <form enctype="multipart/form-data" method="post" id="param-form">
+            {% csrf_token %}
+            <a class="btn blue waves-effect waves-light" id="start-computation"> Start <i class="mdi-navigation-arrow-drop-down right"></i> </a>
+            <input type="file" name="input-file" id="file-input" class="hide" accept=".xls,.xlsx,.csv,.tsv" />
+            <input type="hidden" name="model-id" id="model-id" />
+            <input type="hidden" name="action" value="compute" />
+        </form>
     </div>
 
-    <div class="step">
+    <div class="step download-predictions">
         <div class="step-header col s12 m12 l12">
             <span class="text col s12 m3 l3">  Step 4 | Download Predictions </span>
         </div>
         <ul id="dropdown1" class="dropdown-content">
-            <li><a href="#!" class="-text">one<span class="badge">1</span></a>
-            </li>
-            <li><a href="#!" class="-text">two<span class="new badge ">2</span></a>
-            </li>
-            <li><a href="#!" class="-text">three</a>
+            <li><a href="#!" class="-text" id="download_link" >one<span class="badge">1</span></a>
             </li>
         </ul>
         <a class="blue btn dropdown-button waves-effect waves-light " href="#!" data-activates="dropdown1">Dropdown<i class="mdi-navigation-arrow-drop-down right"></i></a>
@@ -97,11 +114,11 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td> ae4989-389984-9984 </td>
-                            <td> Random Forest </td>
-                            <td> 5-fold </td>
-                            <td> 38 </td>
-                            <td> 1:18:19 </td>
+                            <td id="algo-id"> ae4989-389984-9984 </td>
+                            <td id="algo"> Random Forest </td>
+                            <td id="pred"> 5-fold </td>
+                            <td id="pred-score"> 38 </td>
+                            <td id="time"> 1:18:19 </td>
                         </tr>
                     </tbody>
                 </table>
@@ -112,3 +129,67 @@
 
 
 {% endblock %}
+
+{% block extra_scripts_project %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            function reload() {
+                var query = '?experiment='+$("#experiment-selector").val()+'&status='+$("#status-selector").val()
+                window.location = "{% url 'coordinator:predict' project_id %}"+query;
+            }
+            $("#experiment-selector").change(function() {
+                reload();
+            }); 
+            $("#status-selector").change(function() {
+                reload();
+            })
+
+            $(".start-computation").hide();
+            $(".download-predictions").hide(); 
+
+            $(".model-handle").click(function() {
+                $(".start-computation").show();
+                $("#model-id").val($(this).attr('data-id'));
+            }); 
+
+            $("#start-computation").click(function() {
+                $("#file-input").click();
+            }); 
+            $("#file-input").change(function() {
+                $("#param-form").submit();
+            }); 
+            $("form#param-form").submit(function() {
+                var formdata = new FormData(this);
+                console.log(formdata)
+                $.ajax({
+                    url: '{% url "coordinator:predict" project_id %}',
+                    type: 'POST', 
+                    data: formdata, 
+                    async: false, 
+                    success: function(r) {
+                        var data = JSON.parse(r);
+                        console.log(data)
+                        if(data['status'] == 'success') {
+                            $("#algo-id").text(data['result']['algorithm_id']);
+                            $("#algo").text(data['result']['algorithm']); 
+                            $("#pred").text(data['result']['prediction']); 
+                            $("#pred-score").text(data['result']['prediction_score'])
+                            $("#time").text(data['result']['time'])
+                            $("#download_link").attr('href', data['result']['download_link'])
+                            $("#download_link").text('download');
+                            $(".download-predictions").show();
+                        } else {
+                            alert("something went wrong");
+                        }
+                    }, 
+                    cache: false, 
+                    contentType: false,  
+                    processData: false
+                }); 
+                return false;
+            })
+        }); 
+    </script>
+{% endblock %}
+

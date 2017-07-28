@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
+from django.contrib.staticfiles.templatetags.staticfiles import static
 from datetime import datetime
 from coordinator import models
 from reportWriter import parse_file
@@ -14,8 +15,11 @@ import sys
 from StringIO import StringIO
 import numpy as np
 import uuid
+import random
 
 from tasks import experiment
+from tasks import predict
+from tasks import model_feature
 
 # Create your views here.
 
@@ -232,6 +236,10 @@ def create_models(exp):
 @login_required
 def experiments_project(request, p_id):
 
+	# result = experiment.delay('message')
+	# while not result.ready():
+	# 	print 'ready?'
+
 	project = models.Project.objects.get(id=p_id)
 
 	data = get_algorigthm()
@@ -284,7 +292,11 @@ def experiments_project(request, p_id):
 		message['metric'] = exp.metric
 		message['timelimit'] = exp.timelimit
 
-		experiment.delay(message)
+		result = experiment.delay(message)
+		# exp.f1_score = result['f1_score']
+		# exp.total_time_spent = result['total_time_spent']
+
+		exp.save()
 
 
 	datasets = models.DataSet.objects.filter(project = project)
@@ -348,11 +360,76 @@ def predict_project(request, p_id):
 
 	project = models.Project.objects.get(id=p_id)
 
+	if request.method == 'POST':
+		if request.POST.get('action') == 'compute':
+			input_file = request.FILES['input-file']
+			dest = open(settings.BASE_DIR+'/TEMP/'+input_file.name, 'w+')
+			for chunk in input_file:
+				dest.write(chunk)
+			dest.close()
+			emodel = models.EModel.objects.get(id=int(request.POST.get('model-id')))
+			column_data = json.loads(emodel.dataset.column_data)
+			feature_column = None
+			for cl in column_data:
+				if cl['usuage'] == 'Feature':
+					feature_column = cl['column_name']
+					break
+			target_column = emodel.column
+			message = {
+				'uuid': emodel.uuid, 
+				'feature_column': feature_column, 
+				'target_column': target_column, 
+				'dataset_file': emodel.dataset.file.path, 
+				'input_file': settings.BASE_DIR+'/TEMP/'+input_file.name
+			}
+			result = predict.delay(message)
+
+			result = {
+				'algorithm_id': 'ae4989-389984-9984	',
+				'algorithm': 'Random Forest', 
+				'prediction': '5-fold', 
+				'prediction_score': '48', 
+				'time': '1:18:19', 
+				'download_link': static('downloadfile')
+			}
+
+			return HttpResponse(json.dumps({
+				'status': 'success', 
+				'result': result
+				}))
+
+	experiments = models.Experiment.objects.filter(project = project)
+	active_idx = None
+	emodels = []
+
+	try:
+		active_idx = experiments[0].id
+		if request.GET.get('experiment'):
+			active_idx = int(request.GET.get('experiment'))
+	except:
+		pass
+
+	statuses = ['Done', 'Learning', 'Initiated', 'Error']
+
+	cur_status = request.GET.get('status')
+	try:
+		if cur_status and cur_status != 'all':
+			emodels = models.EModel.objects.filter(experiment = models.Experiment.objects.get(id=active_idx), status=cur_status)
+		else:
+			emodels = models.EModel.objects.filter(experiment = models.Experiment.objects.get(id=active_idx))
+	except:
+		pass
+
 	return render(request, 'coordinator/project-detail/predict.html', {
 		'user': request.user, 
 		'project': project, 
 		'project_id': p_id, 
-		'page_name': 'predict'
+		'page_name': 'predict', 
+		'experiments': experiments, 
+		'emodels': emodels, 
+		'statuses': statuses, 
+		'active_idx': active_idx, 
+		'cur_status': cur_status
 		}) 
 
 @login_required
@@ -360,11 +437,58 @@ def feature_project(request, p_id):
 
 	project = models.Project.objects.get(id=p_id)
 
+	if request.method == 'POST':
+		if request.POST.get('action') == 'get_model_chart':
+			emodel = models.EModel.objects.get(id=int(request.POST.get('model-id')))
+			message = {
+				'uuid': emodel.uuid
+			}
+			result = model_feature.delay(message)
+			y_list = []
+			x_list = range(0,10)
+			for i in x_list:
+				y_list.append(random.random())
+			result = {
+				'x': x_list, 
+				'y': y_list
+			}
+			return HttpResponse(json.dumps({
+				'status': 'success', 
+				'result': result
+				}))
+
+	experiments = models.Experiment.objects.filter(project = project)
+	active_idx = None
+	emodels = []
+
+	try:
+		active_idx = experiments[0].id
+		if request.GET.get('experiment'):
+			active_idx = int(request.GET.get('experiment'))
+	except:
+		pass
+
+	statuses = ['Done', 'Learning', 'Initiated', 'Error']
+
+	cur_status = request.GET.get('status')
+	try:
+		if cur_status and cur_status != 'all':
+			emodels = models.EModel.objects.filter(experiment = models.Experiment.objects.get(id=active_idx), status=cur_status)
+		else:
+			emodels = models.EModel.objects.filter(experiment = models.Experiment.objects.get(id=active_idx))
+	except:
+		pass
+
 	return render(request, 'coordinator/project-detail/feature.html', {
 		'user': request.user, 
 		'project': project, 
 		'project_id': p_id, 
-		'page_name': 'feature'
+		'page_name': 'feature', 
+		'experiments': experiments, 
+		'emodels': emodels, 
+		'statuses': statuses, 
+		'active_idx': active_idx, 
+		'cur_status': cur_status
 		}) 
 
 @login_required

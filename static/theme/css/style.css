@@ -2659,7 +2659,13 @@ Custom CSS
 }
 
 .with-leftmenu {
-  padding-left: 240px;
+  padding-left: 0;
+}
+
+@media only screen and (min-width: 993px) {
+  .with-leftmenu {
+    padding-left: 240px;
+  }
 }
 
 .floating-form {

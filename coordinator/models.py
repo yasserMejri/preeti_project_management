@@ -29,6 +29,8 @@ class DataSet(models.Model):
 	column_data = models.TextField()
 	rowcount = models.IntegerField()
 	colcount = models.IntegerField()
+	f1_score = models.FloatField(default = 0)
+	total_time_spent = models.FloatField(default = 0) # Seconds Time Delta
 
 	def __str__(self):
 		return self.name
