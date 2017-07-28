@@ -2439,6 +2439,7 @@ Custom CSS
   width: 35px;
   position: relative;
   top: 12px;
+  box-shadow: 0px 0px 20px #fff;
 }
 
 #usermenu-dropdown h5 {
@@ -2508,11 +2509,13 @@ Custom CSS
 }
 
 .logoText {
-  margin:14px;
+  margin:16px;
 }
 
 .logoText > a {
   font-size: 1em;
+  font-weight: 900;
+  text-shadow: 0px 0px 7px #0ff;
 }
 
 #project-nav {
@@ -2681,6 +2684,10 @@ Custom CSS
 
 .model-handle {
   cursor: pointer;
+}
+
+.model-handle:hover {
+  background-color: #eeeeee !important;
 }
 
 .model-selected {
