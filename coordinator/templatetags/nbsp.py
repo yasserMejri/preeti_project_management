@@ -27,9 +27,7 @@ def compare(value, arg):
 def comparecol(value, arg):
 	return value.split('-')[-1] == arg
 
-@register.filter()
-def names(value, length):
-	length = int(length)
+def make_list(value, length = 5):
 	result = '<ul class="algo-list">'
 	for item in value:
 		result = result + '<li class="algo-item">'+item.name+'</li>'
@@ -40,14 +38,20 @@ def names(value, length):
 	return result
 
 @register.filter()
-def experiments(value, length=5):
-	exps = models.Experiment.objects.filter(dataset=value)
-	result = '<ul class="algo-list">'
-	for item in exps:
-		result = result + '<li class="algo-item">'+item.name+'</li>'
-		if length == 0:
-			break
-		length = length - 1
-	result = result + '</ul>'
-	return result
+def names(value, length = 5):
+	return make_list(value, length)
 
+@register.filter()
+def experiments(value, length = 5):
+	exps = models.Experiment.objects.filter(project=value)
+	return make_list(exps, length)
+
+@register.filter()
+def dataset_experiments(value, length = 5):
+	exps = models.Experiment.objects.filter(dataset=value)
+	return make_list(exps, length)
+
+@register.filter()
+def datasets(value):
+	datasets = models.DataSet.objects.filter(project = value)
+	return make_list(datasets, 5)

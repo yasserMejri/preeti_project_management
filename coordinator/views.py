@@ -36,6 +36,7 @@ def projects(request):
 		layout = 'grid'
 	else:
 		layout = 'list'
+	query = request.GET.get('query')
 
 	if request.method == 'POST':
 		if request.POST.get('add-new'):
@@ -66,14 +67,21 @@ def projects(request):
 				}))
 
 	if request.user.is_superuser:
-		projects = models.Project.objects.all()
+		if query:
+			projects = models.Project.objects.filter(name__contains=query)
+		else:
+			projects = models.Project.objects.all()
 	else:
-		projects = models.Project.objects.filter(Q(owner=request.user) | Q(visibility__contains='Public'))
+		if query:
+			projects = models.Project.objects.filter(Q(owner=request.user) | Q(visibility__contains='Public') & Q(name__contains=query))
+		else:
+			projects = models.Project.objects.filter(Q(owner=request.user) | Q(visibility__contains='Public'))
 
 	return render(request, 'coordinator/projects.html', {
 		'user': request.user, 
 		'layout': layout, 
-		'projects': projects
+		'projects': projects, 
+		'query': query
 		})
 
 @login_required

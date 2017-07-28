@@ -135,8 +135,8 @@
                             {% for project in projects %}
                             <tr>
                                 <td> {{ project.name }} </td>
-                                <td> {{ datasets|names:"5"|safe }} </td>
-                                <td> {{ experiments|names:"5"|safe }} </td>
+                                <td> {{ project|datasets|safe }} </td>
+                                <td> {{ project|experiments|safe }} </td>
                                 <td> Algorithm </td>
                                 <td> {{ project.validation }} </td>
                                 <td> 0.8945 </td>

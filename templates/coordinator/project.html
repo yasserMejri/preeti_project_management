@@ -15,8 +15,8 @@
 {% block letfsidebar %}
     <ul id="project-nav" class="side-nav fixed leftside-navigation">
         <li class="menu-item"> 
-            <a href="{% url 'coordinator:project' project_id %}" class="black-text" > 
-                <strong> {{ project.name }} </strong>
+            <a href="{% url 'coordinator:project' project_id %}" class="black-text project-title" > 
+                <strong  title = "{{ project.name }}" > {{ project.name }} </strong>
             </a> 
         </li>
         <li class="divider"></li>
@@ -102,7 +102,7 @@
                             {% for dataset in datasets %}
                                 <tr>
                                     <td> {{ dataset.name }} </th>
-                                    <td> {{ dataset|experiments|safe}} </td>
+                                    <td> {{ dataset|dataset_experiments|safe}} </td>
                                     <td> Algorithm </td>
                                     <td> {{ project.validation }} </td>
                                     <td> 0.8945 </td>
